@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ccuhn8dti20ey"]
+
+[ext_resource type="PackedScene" uid="uid://c8nqm3d5e0p7v" path="res://scenes/rocket.tscn" id="1_tidbb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tb70k"]
+size = Vector2(1152, 40)
+
+[node name="Launchpad" type="Node2D" unique_id=2143229476]
+
+[node name="Rocket" parent="." unique_id=1426638051 instance=ExtResource("1_tidbb")]
+position = Vector2(569, 563)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=506717385]
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1814655447]
+offset_top = 608.0
+offset_right = 1151.0
+offset_bottom = 648.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=352176715]
+position = Vector2(576, 628)
+shape = SubResource("RectangleShape2D_tb70k")

@@ -17,6 +17,11 @@ contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_rocket")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1059908945]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=52775126]
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("2_icon")

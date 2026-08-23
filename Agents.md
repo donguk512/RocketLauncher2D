@@ -25,9 +25,10 @@
 
 ## 🌲 2. 현재 씬(Scene) 및 노드(Node) 계층 구조
 
-### 🚀 `res://scenes/rocket.tscn` (Rocket 단일체)
+### 🚀 `res://scenes/rocket.tscn` (Rocket 기체 단일체)
 ```text
 Rocket (RigidBody2D) [@scripts/rocket.gd]
+├── Camera2D (추종 카메라 / Process Callback = Physics, Position Smoothing 활성화)
 ├── Sprite2D (임시 로켓 기체 텍스처 - icon.svg)
 ├── CollisionShape2D (CapsuleShape2D / 기체 충돌체)
 ├── ThrustParticles (CPUParticles2D / 메인 엔진 분사 화염)
@@ -36,27 +37,32 @@ Rocket (RigidBody2D) [@scripts/rocket.gd]
 └── LandingGearRay (RayCast2D / 착륙 지면 감지용 레이캐스트)
 ```
 
+### 🌍 `res://scenes/launchpad.tscn` (발사대 & 테스트 스테이지)
+```text
+Launchpad (Node2D)
+├── Rocket (Rocket 인스턴스 - rocket.tscn)
+└── StaticBody2D (바닥 지형 / Anchored Part)
+    ├── ColorRect (바닥 비주얼 / 1152x40)
+    └── CollisionShape2D (RectangleShape2D 충돌체 / 1152x40)
+```
+
 ---
 
-## ⚙️ 3. 구현 및 검증 현황
+## ⚙️ 3. 구현 및 최적화 현황
 
-### ✅ 1) 로켓 물리 및 역학 시스템 (`rocket.gd`)
-- **F6 단독 실행 검증 완료**: 로켓 노드가 물리 엔진(중력)의 영향을 받아 정상 낙하하는 물리 인스턴스화 확인.
-- **물리 적분 제어 (`_integrate_forces`)**:
-  - 엔진 추력: `-global_transform.y` 방향 `apply_central_force()` 가속.
-  - 자세 제어: A/D 입력에 따른 `apply_torque()` 각운동량 제어.
-- **가변 질량 시스템 ($F = ma$)**: `mass = dry_mass + current_fuel` 실시간 갱신.
+### ✅ 1) 물리-카메라 동기화 최적화 (Physics Jitter 방지)
+- **카메라 처리 주기 동기화**: `Camera2D`의 `Process Callback`을 `Idle`(`_process`)에서 `Physics`(`_physics_process`)로 전환하여 물리 적분 틱과 렌더링 간의 미세 떨림/버벅임 해소.
+- **2D 픽셀 물리 스케일 튜닝**: `Max Thrust = 3,500,000 N` 적용으로 시원한 이륙 가속 확보.
 
 ---
 
 ## 🚧 4. 미해결 이슈 및 학습 과제
-- [ ] **2D 좌표계 및 뷰포트 원점 이해**: `(0, 0)` 위치와 화면 렌더링 기준점 이해.
-- [ ] **카메라 추종 시스템 (`Camera2D`)**: 로켓을 화면 중앙에 두고 따라가게 만드는 방법.
-- [ ] **정적 지형 구성 (`StaticBody2D`)**: 로켓이 착륙할 발사대 및 바닥 생성.
-- [ ] **HUD 계기판 (`CanvasLayer`)**: 스크린 고정 UI와 월드 좌표계의 분리.
+- [ ] **착륙 판정 로직 (`LandingGearRay`)**: 속도 및 각도에 따른 착륙 성공 vs 폭발 구현.
+- [ ] **UI 계기판 (`CanvasLayer`)**: 실시간 고도, 수직 속도(VSI), 연료 게이지 HUD 제작.
 
 ---
 
-## 🎯 5. 다음 작업할 목표
-1. **좌표계 및 카메라 개념 학습**: 왜 로켓이 좌상단에서 떨어졌는지 원리 파악 및 `Camera2D` 노드 역할 학습.
-2. **발사대/바닥 지형 실습**: 사용자가 직접 `StaticBody2D`를 배치하여 로켓을 바닥에 세우는 방법 안내.
+## 🎯 5. 1시간 단기 스프린트 진행 현황
+1. [x] **발사대 및 바닥 만들기**: `StaticBody2D` 바닥 구축 완료!
+2. [x] **추종 카메라 달기**: `Camera2D` 연동 및 부드러운 물리 동기화 완료!
+3. [ ] **첫 비행 및 호버링/착륙 테스트**: 발사대 이륙 ➡️ 공중 제어 ➡️ 발사대 착륙 손맛 검증.

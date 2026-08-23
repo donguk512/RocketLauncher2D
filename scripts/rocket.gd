@@ -23,8 +23,8 @@ signal rocket_destroyed()
 @export var fuel_burn_rate: float = 50.0      ## 풀 스로틀 시 초당 연료 소모량 (kg/s)
 
 @export_group("Engine & Control")
-@export var max_thrust: float = 35000.0       ## 최대 엔진 추력 (N - 뉴턴 단위)
-@export var torque_strength: float = 150000.0 ## 회전 토크 강도 (N*m)
+@export var max_thrust: float = 3500000.0       ## 최대 엔진 추력 (N - 뉴턴 단위)
+@export var torque_strength: float = 8000000.0 ## 회전 토크 강도 (N*m)
 
 # ----------------------------------------------------
 # 🔍 노드 참조 (Roblox: local Part = Model:WaitForChild("Part"))
