@@ -1,15 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8nqm3d5e0p7v"]
+[gd_scene format=3 uid="uid://c8nqm3d5e0p7v"]
 
-[ext_resource type="Script" path="res://scripts/rocket.gd" id="1_rocket"]
-[ext_resource type="Texture2D" uid="uid://bgm03k7j4qy88" path="res://icon.svg" id="2_icon"]
+[ext_resource type="Script" uid="uid://coexae841ig3w" path="res://scripts/rocket.gd" id="1_rocket"]
+[ext_resource type="Texture2D" uid="uid://c0cwbr1h6hian" path="res://icon.svg" id="2_icon"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rocket"]
 radius = 16.0
 height = 64.0
 
-[node name="Rocket" type="RigidBody2D"]
-collision_layer = 1
-collision_mask = 1
+[node name="Rocket" type="RigidBody2D" unique_id=1426638051]
 mass = 2000.0
 center_of_mass_mode = 1
 center_of_mass = Vector2(0, 8)
@@ -19,19 +17,18 @@ contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_rocket")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=52775126]
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("2_icon")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=429001089]
 shape = SubResource("CapsuleShape2D_rocket")
 
-[node name="ThrustParticles" type="CPUParticles2D" parent="."]
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=1736678495]
 position = Vector2(0, 32)
 emitting = false
 amount = 40
 lifetime = 0.4
-speed_scale = 1.0
 emission_shape = 3
 emission_rect_extents = Vector2(4, 2)
 direction = Vector2(0, 1)
@@ -43,7 +40,7 @@ scale_amount_min = 2.0
 scale_amount_max = 4.0
 color = Color(1, 0.533333, 0.2, 1)
 
-[node name="RCSLeftParticles" type="CPUParticles2D" parent="."]
+[node name="RCSLeftParticles" type="CPUParticles2D" parent="." unique_id=721283123]
 position = Vector2(-16, -16)
 emitting = false
 amount = 10
@@ -57,12 +54,11 @@ scale_amount_min = 1.5
 scale_amount_max = 2.5
 color = Color(0.8, 0.9, 1, 0.8)
 
-[node name="RCSRightParticles" type="CPUParticles2D" parent="."]
+[node name="RCSRightParticles" type="CPUParticles2D" parent="." unique_id=1259422862]
 position = Vector2(16, -16)
 emitting = false
 amount = 10
 lifetime = 0.2
-direction = Vector2(1, 0)
 spread = 10.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 60.0
@@ -71,6 +67,6 @@ scale_amount_min = 1.5
 scale_amount_max = 2.5
 color = Color(0.8, 0.9, 1, 0.8)
 
-[node name="LandingGearRay" type="RayCast2D" parent="."]
+[node name="LandingGearRay" type="RayCast2D" parent="." unique_id=1833068432]
 position = Vector2(0, 32)
 target_position = Vector2(0, 16)
