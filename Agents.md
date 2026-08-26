@@ -37,7 +37,7 @@ Rocket (RigidBody2D) [@scripts/rocket.gd]
 └── LandingGearRay (RayCast2D / 착륙 지면 감지용 레이캐스트)
 ```
 
-### 🌍 `res://scenes/launchpad.tscn` (발사대 & 테스트 스테이지)
+### 🌍 `res://Scenes/launchpad.tscn` (평면 발사대 & 구 테스트 스테이지)
 ```text
 Launchpad (Node2D)
 ├── Rocket (Rocket 인스턴스 - rocket.tscn)
@@ -46,23 +46,40 @@ Launchpad (Node2D)
     └── CollisionShape2D (RectangleShape2D 충돌체 / 1152x40)
 ```
 
+### 🪐 `res://Scenes/planet.tscn` (원형 지구 행성 & 방사형 중력장)
+```text
+Planet (StaticBody2D) [@Scripts/planet.gd]
+├── Collider (CollisionShape2D / CircleShape2D, Radius 2000)
+└── GravityArea (Area2D / Point Gravity=On, Space Override=Replace)
+    ├── CollisionShape2D (CircleShape2D, Radius 6000 / 대기권 및 중력 영향권)
+    └── Rocket (테스트용 인스턴스 - rocket.tscn)
+```
+
 ---
 
 ## ⚙️ 3. 구현 및 최적화 현황
 
-### ✅ 1) 물리-카메라 동기화 최적화 (Physics Jitter 방지)
-- **카메라 처리 주기 동기화**: `Camera2D`의 `Process Callback`을 `Idle`(`_process`)에서 `Physics`(`_physics_process`)로 전환하여 물리 적분 틱과 렌더링 간의 미세 떨림/버벅임 해소.
+### ✅ 1) 물리-카메라 동기화 및 지평선 추종 (Horizon Camera)
+- **카메라 처리 주기 동기화**: `Camera2D`의 `Process Callback`을 `Physics`로 두고, `_physics_process`에서 직접 `camera.global_rotation = up_dir.angle() + PI * 0.5`를 대입하여 물리 틱과 1:1 동기화 완료 (화면 떨림/지터 완벽 해소).
+- **카메라 하드락 해제**: `camera.ignore_rotation = false` 처리로 뷰포트 회전 활성화.
 - **2D 픽셀 물리 스케일 튜닝**: `Max Thrust = 3,500,000 N` 적용으로 시원한 이륙 가속 확보.
+
+### ✅ 2) 원형 행성 & 방사형 중력 시스템 (Radial Gravity)
+- **`Area2D` Point Gravity**: 엔진 빌트인 점 중력(`Gravity Point = true`, `Replace` 모드)을 활용해 코드 0줄로 완벽한 구형 행성 중력장 구축.
+- **벡터 드로잉 (`planet.gd`)**: `_draw()` 기반 원형 지표면 렌더링.
 
 ---
 
 ## 🚧 4. 미해결 이슈 및 학습 과제
+- [ ] **지구 곡면 안티앨리어싱/세그먼트 최적화**: 거대 반지름(2000px)에서 `draw_colored_polygon` 360분할 적용 검토.
 - [ ] **착륙 판정 로직 (`LandingGearRay`)**: 속도 및 각도에 따른 착륙 성공 vs 폭발 구현.
 - [ ] **UI 계기판 (`CanvasLayer`)**: 실시간 고도, 수직 속도(VSI), 연료 게이지 HUD 제작.
 
 ---
 
-## 🎯 5. 1시간 단기 스프린트 진행 현황
+## 🎯 5. 스프린트 진행 현황
 1. [x] **발사대 및 바닥 만들기**: `StaticBody2D` 바닥 구축 완료!
 2. [x] **추종 카메라 달기**: `Camera2D` 연동 및 부드러운 물리 동기화 완료!
-3. [ ] **첫 비행 및 호버링/착륙 테스트**: 발사대 이륙 ➡️ 공중 제어 ➡️ 발사대 착륙 손맛 검증.
+3. [x] **원형 행성 & 방사형 중력장 구축**: `planet.tscn` + `Area2D Point Gravity` 완료!
+4. [x] **지평선 자동 추종 카메라**: 지구 둘레 비행 시 부드럽게 지평선 정렬 완료!
+5. [ ] **착륙 판정 및 손맛 검증**: 원형 행성 표면 착륙/호버링 테스트.
