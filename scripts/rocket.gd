@@ -33,7 +33,7 @@ signal rocket_destroyed()
 @onready var rcs_left_particles: CPUParticles2D = $RCSLeftParticles
 @onready var rcs_right_particles: CPUParticles2D = $RCSRightParticles
 @onready var landing_ray: RayCast2D = $LandingGearRay
-
+@onready var camera: Camera2D = $Camera2D
 # ----------------------------------------------------
 # 📊 런타임 상태 변수
 # ----------------------------------------------------
@@ -56,6 +56,15 @@ func _ready() -> void:
 	if rcs_right_particles:
 		rcs_right_particles.emitting = false
 
+func _physics_process(delta: float) -> void:
+	if camera:
+		# [핵심 수정] ignore_rotation이 true면 화면 회전이 아예 잠겨버립니다.
+		# 부모의 회전을 스크립트로 상쇄하기 위해 false로 설정하고 직접 global_rotation을 덮어씌웁니다.
+		camera.ignore_rotation = false
+		
+		# 행성 중심(0, 0)에서 로켓을 향하는 '하늘 방향' 벡터
+		var up_dir: Vector2 = global_position.normalized()
+		camera.global_rotation = up_dir.angle() + PI * 0.5
 
 func _process(_delta: float) -> void:
 	# [입력 처리] - Roblox의 UserInputService / ContextActionService 역할

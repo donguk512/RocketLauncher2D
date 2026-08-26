@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bio1dn5q075t"]
+
+[ext_resource type="Script" uid="uid://gcps48e4xral" path="res://Scripts/planet.gd" id="1_xehyc"]
+[ext_resource type="PackedScene" uid="uid://c8nqm3d5e0p7v" path="res://Scenes/rocket.tscn" id="2_vpe2g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5h11f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bx8n8"]
+
+[node name="Planet" type="StaticBody2D" unique_id=1594195101]
+script = ExtResource("1_xehyc")
+radius = 2000.0
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=464396454]
+scale = Vector2(200, 200)
+shape = SubResource("CircleShape2D_5h11f")
+
+[node name="GravityArea" type="Area2D" parent="." unique_id=406944222]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea" unique_id=437543870]
+scale = Vector2(1000, 1000)
+shape = SubResource("CircleShape2D_bx8n8")
+
+[node name="Rocket" parent="GravityArea" unique_id=1426638051 instance=ExtResource("2_vpe2g")]
+position = Vector2(2074, -938)

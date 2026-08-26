@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8nqm3d5e0p7v"]
 
-[ext_resource type="Script" uid="uid://coexae841ig3w" path="res://scripts/rocket.gd" id="1_rocket"]
+[ext_resource type="Script" uid="uid://coexae841ig3w" path="res://Scripts/rocket.gd" id="1_rocket"]
 [ext_resource type="Texture2D" uid="uid://c0cwbr1h6hian" path="res://icon.svg" id="2_icon"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rocket"]
@@ -18,8 +18,8 @@ max_contacts_reported = 4
 script = ExtResource("1_rocket")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1059908945]
+zoom = Vector2(0.5, 0.5)
 process_callback = 0
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=52775126]
