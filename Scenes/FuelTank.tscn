@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b0llnkpkypwhk"]
+
+[ext_resource type="PackedScene" uid="uid://32y544570foh" path="res://Scenes/PartBase.tscn" id="1_x0xy1"]
+[ext_resource type="Script" uid="uid://bebohhd80r4ht" path="res://Scripts/FuelTank.gd" id="2_pum8j"]
+
+[node name="FuelTank" unique_id=1603099264 instance=ExtResource("1_x0xy1")]
+script = ExtResource("2_pum8j")
+fuel_mass = 0.0
+max_fuel_mass = 1.0

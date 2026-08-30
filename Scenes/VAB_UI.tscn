@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://fo830acsq7ft"]
+
+[node name="VAB_UI" type="Control" unique_id=1840675026]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=11293441]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=1844863892]
+layout_mode = 2
