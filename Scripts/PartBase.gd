@@ -1,3 +1,5 @@
+class_name PartBase
+
 extends Node2D
 
 @export var mass: float = 1.0
