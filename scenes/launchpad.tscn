@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ccuhn8dti20ey"]
+
+[ext_resource type="PackedScene" uid="uid://c8nqm3d5e0p7v" path="res://scenes/rocket.tscn" id="1_tidbb"]
+[ext_resource type="PackedScene" uid="uid://bio1dn5q075t" path="res://scenes/planet.tscn" id="2_gyks0"]
+
+[node name="Launchpad" type="Node2D" unique_id=2143229476]
+
+[node name="Rocket" parent="." unique_id=1426638051 instance=ExtResource("1_tidbb")]
+position = Vector2(569, 563)
+
+[node name="Earth" parent="." unique_id=1594195101 instance=ExtResource("2_gyks0")]
+position = Vector2(36215, 33392)
+radius = 40000.0

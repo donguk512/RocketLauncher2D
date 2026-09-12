@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bio1dn5q075t"]
+
+[ext_resource type="Script" uid="uid://gcps48e4xral" path="res://scripts/planet.gd" id="1_xehyc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8ms6"]
+radius = 1000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ggt7d"]
+radius = 3000.0
+
+[node name="Planet" type="StaticBody2D" unique_id=1594195101]
+script = ExtResource("1_xehyc")
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=464396454]
+shape = SubResource("CircleShape2D_h8ms6")
+
+[node name="GravityArea" type="Area2D" parent="." unique_id=406944222]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea" unique_id=437543870]
+shape = SubResource("CircleShape2D_ggt7d")
