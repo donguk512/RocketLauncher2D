@@ -8,5 +8,6 @@
 [node name="Rocket" parent="." unique_id=1426638051 instance=ExtResource("1_tidbb")]
 position = Vector2(569, 563)
 
-[node name="Planet" parent="." unique_id=1594195101 instance=ExtResource("2_gyks0")]
-position = Vector2(3063, 1520)
+[node name="Earth" parent="." unique_id=1594195101 instance=ExtResource("2_gyks0")]
+position = Vector2(36215, 33392)
+radius = 40000.0

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cul66kdd1w5d5"]
+
+[ext_resource type="Script" uid="uid://3n3hvst18wft" path="res://Scripts/VAB_Camera.gd" id="1_6jehs"]
+[ext_resource type="PackedScene" uid="uid://fo830acsq7ft" path="res://Scenes/VAB_UI.tscn" id="1_cb4ft"]
+[ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/FuelTank.tscn" id="3_kc2qi"]
+
+[node name="VAB_Main" type="Node2D" unique_id=420252430]
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1532760249]
+script = ExtResource("1_6jehs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=257619631]
+
+[node name="VAB_UI" parent="CanvasLayer" unique_id=1840675026 instance=ExtResource("1_cb4ft")]
+mouse_filter = 2
+
+[node name="FuelTank" parent="." unique_id=1603099264 instance=ExtResource("3_kc2qi")]
+position = Vector2(-161, -25)
