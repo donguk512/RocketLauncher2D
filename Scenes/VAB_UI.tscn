@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://fo830acsq7ft"]
 
-[ext_resource type="Script" uid="uid://7udvc5jcl4lm" path="res://Scripts/VAB_Manager.gd" id="1_u6thc"]
+[ext_resource type="Script" uid="uid://bssjma0e3pkbn" path="res://Scripts/VAB_PartGrid.gd" id="1_vw5qt"]
 [ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/FuelTank.tscn" id="2_u6thc"]
 
 [node name="VAB_UI" type="Control" unique_id=1840675026]
@@ -31,9 +31,10 @@ offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="Panel/ScrollContainer" unique_id=1844863892]
+[node name="PartGrid" type="GridContainer" parent="Panel/ScrollContainer" unique_id=1844863892]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 columns = 2
-script = ExtResource("1_u6thc")
+script = ExtResource("1_vw5qt")
 available_parts = Array[PackedScene]([ExtResource("2_u6thc")])

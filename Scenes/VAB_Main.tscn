@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://3n3hvst18wft" path="res://Scripts/VAB_Camera.gd" id="1_6jehs"]
 [ext_resource type="PackedScene" uid="uid://fo830acsq7ft" path="res://Scenes/VAB_UI.tscn" id="1_cb4ft"]
-[ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/FuelTank.tscn" id="3_kc2qi"]
+[ext_resource type="Script" uid="uid://dh75x4u436ll5" path="res://Scripts/VAB_Main.gd" id="1_kc2qi"]
+[ext_resource type="Script" uid="uid://dr4s4vphct5yo" path="res://Scripts/VAB_Builder.gd" id="4_oeb7j"]
 
 [node name="VAB_Main" type="Node2D" unique_id=420252430]
+script = ExtResource("1_kc2qi")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1532760249]
 script = ExtResource("1_6jehs")
@@ -14,5 +16,5 @@ script = ExtResource("1_6jehs")
 [node name="VAB_UI" parent="CanvasLayer" unique_id=1840675026 instance=ExtResource("1_cb4ft")]
 mouse_filter = 2
 
-[node name="FuelTank" parent="." unique_id=1603099264 instance=ExtResource("3_kc2qi")]
-position = Vector2(-161, -25)
+[node name="Workspace" type="Node2D" parent="." unique_id=1513698776]
+script = ExtResource("4_oeb7j")
