@@ -10,12 +10,12 @@
 shader = ExtResource("5_q4c8w")
 shader_parameter/camera_position = Vector2(0, 0)
 shader_parameter/zoom = Vector2(1, 1)
-shader_parameter/bg_color = Color(0.2680778, 0.2902086, 0.32708734, 1)
-shader_parameter/line_color = Color(1, 1, 1, 0.1)
-shader_parameter/major_line_color = Color(1, 1, 1, 0.22)
-shader_parameter/grid_size = 64.0
+shader_parameter/bg_color = Color(0.19270001, 0.2574034, 0.47, 1)
+shader_parameter/line_color = Color(0.44, 0.44, 0.44, 1)
+shader_parameter/major_line_color = Color(1, 1, 1, 1)
+shader_parameter/grid_size = 16.0
 shader_parameter/line_thickness = 1.0
-shader_parameter/major_step = 5
+shader_parameter/major_step = 4
 
 [node name="VAB_Main" type="Node2D" unique_id=420252430]
 script = ExtResource("1_kc2qi")

@@ -9,6 +9,14 @@ extends Node2D
 
 signal clicked(part: PartBase)
 
+func get_snap_points() -> Array[Marker2D]:
+	var points: Array[Marker2D] = []
+	
+	for child in $SnapPoints.get_children():
+		if child is Marker2D:
+			points.append(child)
+			
+	return points
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,8 +24,6 @@ func _ready() -> void:
 		if event.is_action_pressed("select_part"):
 			clicked.emit(self)
 	)
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

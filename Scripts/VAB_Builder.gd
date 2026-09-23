@@ -1,8 +1,9 @@
 extends Node2D
 
+const SNAP_DISTANCE: float = 32.0;
+
 var held_part: PartBase
 var drag_offset = Vector2.ZERO
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,7 +35,36 @@ func _unhandled_input(event: InputEvent) -> void:
 		held_part = null
 		get_viewport().set_input_as_handled() # 다른 UI로 클릭이 새어나가지 않게 소비
 
+func apply_snap() -> void:
+	var held_markers = held_part.get_snap_points()
+	if held_markers.is_empty():
+		return
+	
+	var closest_dist_sqr: float = SNAP_DISTANCE * SNAP_DISTANCE
+	var snap_offset: Vector2 = Vector2.ZERO
+	var found_snap: bool = false
+	
+	for h_marker in held_markers:
+		for other_part in get_children():
+			if other_part == held_part or not (other_part is PartBase):
+				continue
+			
+			for o_marker in other_part.get_snap_points():
+				var dist_sqr = h_marker.global_position.distance_squared_to(o_marker.global_position)
+				
+				if dist_sqr < closest_dist_sqr:
+					closest_dist_sqr = dist_sqr
+					snap_offset = o_marker.global_position - h_marker.global_position
+					found_snap = true
+	if found_snap:
+		held_part.global_position += snap_offset
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if held_part != null:
-		held_part.global_position = get_global_mouse_position() + drag_offset
+	if held_part == null:
+		return
+	
+	var raw_pos = get_global_mouse_position() + drag_offset
+	held_part.global_position = raw_pos.snapped(Vector2.ONE * Constants.GRID_SIZE / 4)
+	
+	apply_snap()

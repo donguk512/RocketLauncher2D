@@ -5,11 +5,11 @@ uniform vec2 zoom = vec2(1.0);
 
 uniform vec4 bg_color: source_color = vec4(.11, .12, .14, 1.0);
 uniform vec4 line_color: source_color = vec4(1.0, 1.0, 1.0, .10);
-uniform vec4 major_line_color: source_color = vec4(1.0, 1.0, 1.0, .22);
+uniform vec4 major_line_color: source_color = vec4(1.0, 1.0, 1.0, 1.0);
 
-uniform float grid_size = 64.0;
+uniform float grid_size = 16.0;
 uniform float line_thickness = 1.0;
-uniform int major_step = 5;
+uniform int major_step = 4;
 
 void fragment() {
 	vec2 screen_size = 1.0 / SCREEN_PIXEL_SIZE;
