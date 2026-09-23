@@ -4,6 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://fo830acsq7ft" path="res://Scenes/VAB_UI.tscn" id="1_cb4ft"]
 [ext_resource type="Script" uid="uid://dh75x4u436ll5" path="res://Scripts/VAB_Main.gd" id="1_kc2qi"]
 [ext_resource type="Script" uid="uid://dr4s4vphct5yo" path="res://Scripts/VAB_Builder.gd" id="4_oeb7j"]
+[ext_resource type="Shader" uid="uid://dbftuxubj70m2" path="res://Shaders/VAB_Main.gdshader" id="5_q4c8w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5h11f"]
+shader = ExtResource("5_q4c8w")
+shader_parameter/camera_position = Vector2(0, 0)
+shader_parameter/zoom = Vector2(1, 1)
+shader_parameter/bg_color = Color(0.2680778, 0.2902086, 0.32708734, 1)
+shader_parameter/line_color = Color(1, 1, 1, 0.1)
+shader_parameter/major_line_color = Color(1, 1, 1, 0.22)
+shader_parameter/grid_size = 64.0
+shader_parameter/line_thickness = 1.0
+shader_parameter/major_step = 5
 
 [node name="VAB_Main" type="Node2D" unique_id=420252430]
 script = ExtResource("1_kc2qi")
@@ -11,10 +23,24 @@ script = ExtResource("1_kc2qi")
 [node name="Camera" type="Camera2D" parent="." unique_id=1532760249]
 script = ExtResource("1_6jehs")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=257619631]
-
-[node name="VAB_UI" parent="CanvasLayer" unique_id=1840675026 instance=ExtResource("1_cb4ft")]
-mouse_filter = 2
+[node name="VAB_UI" parent="." unique_id=1840675026 instance=ExtResource("1_cb4ft")]
 
 [node name="Workspace" type="Node2D" parent="." unique_id=1513698776]
 script = ExtResource("4_oeb7j")
+
+[node name="GridCanvas" type="CanvasLayer" parent="." unique_id=941199153]
+layer = -1
+
+[node name="Grid" type="ColorRect" parent="GridCanvas" unique_id=704721921]
+z_index = -100
+z_as_relative = false
+material = SubResource("ShaderMaterial_5h11f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
