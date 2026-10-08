@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://fo830acsq7ft"]
 
 [ext_resource type="Script" uid="uid://bssjma0e3pkbn" path="res://Scripts/VAB_PartGrid.gd" id="1_vw5qt"]
-[ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/FuelTank.tscn" id="2_u6thc"]
+[ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/FuelTanks/FuelTank.tscn" id="2_u6thc"]
+[ext_resource type="PackedScene" uid="uid://dcs2xvdbadm6p" path="res://Scenes/FuelTanks/FuelTank2.tscn" id="3_mwh44"]
 
 [node name="VAB_UI" type="CanvasLayer" unique_id=2073387601]
 
-[node name="Panel" type="Panel" parent="." unique_id=130105730]
+[node name="CatalogPanel" type="Panel" parent="." unique_id=130105730]
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 264.0
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=11293441]
+[node name="ScrollingFrame" type="ScrollContainer" parent="CatalogPanel" unique_id=11293441]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -23,10 +24,22 @@ offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="PartGrid" type="GridContainer" parent="Panel/ScrollContainer" unique_id=1844863892]
+[node name="PartGrid" type="GridContainer" parent="CatalogPanel/ScrollingFrame" unique_id=1844863892]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 columns = 2
 script = ExtResource("1_vw5qt")
-available_parts = Array[PackedScene]([ExtResource("2_u6thc")])
+available_parts = Array[PackedScene]([ExtResource("2_u6thc"), ExtResource("3_mwh44")])
+
+[node name="LaunchButton" type="Button" parent="." unique_id=1130603194]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "발사대로 이동"

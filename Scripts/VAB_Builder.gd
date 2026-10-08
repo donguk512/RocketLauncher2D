@@ -5,6 +5,9 @@ const SNAP_DISTANCE: float = 32.0;
 var held_part: PartBase
 var drag_offset = Vector2.ZERO
 
+@onready var vab_ui: CanvasLayer = $"../UI"
+@onready var catalog_panel: Panel = vab_ui.get_node("CatalogPanel")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -19,7 +22,7 @@ func spawn_part(part_scene: PackedScene) -> void:
 	
 	drag_offset = Vector2.ZERO
 	held_part = new_part
-				
+	
 
 func on_part_click(part: PartBase):
 	if held_part == null:
@@ -29,11 +32,17 @@ func on_part_click(part: PartBase):
 		
 	print(part)
 	
-func _unhandled_input(event: InputEvent) -> void:
-	# 부품을 들고 있는 상태에서 화면 빈 곳 어디든 클릭하면 내려놓기
+func _input(event: InputEvent) -> void:
+	
 	if held_part != null and event.is_action_pressed("select_part"):
+		# Check if the part is on catalog ui
+		if catalog_panel.get_global_rect().has_point(catalog_panel.get_local_mouse_position()):
+			held_part.queue_free()
+		
+		# Unhold the part when mouse click while holding it
 		held_part = null
-		get_viewport().set_input_as_handled() # 다른 UI로 클릭이 새어나가지 않게 소비
+		
+		get_viewport().set_input_as_handled() # absorb this input
 
 func apply_snap() -> void:
 	var held_markers = held_part.get_snap_points()
