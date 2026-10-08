@@ -10,9 +10,9 @@
 shader = ExtResource("5_q4c8w")
 shader_parameter/camera_position = Vector2(0, 0)
 shader_parameter/zoom = Vector2(1, 1)
-shader_parameter/bg_color = Color(0.19270001, 0.2574034, 0.47, 1)
-shader_parameter/line_color = Color(0.44, 0.44, 0.44, 1)
-shader_parameter/major_line_color = Color(1, 1, 1, 1)
+shader_parameter/bg_color = Color(0.1882353, 0.3764706, 0.6745098, 1)
+shader_parameter/line_color = Color(1, 1, 1, 0.08627451)
+shader_parameter/major_line_color = Color(1, 1, 1, 0.14117648)
 shader_parameter/grid_size = 16.0
 shader_parameter/line_thickness = 1.0
 shader_parameter/major_step = 4

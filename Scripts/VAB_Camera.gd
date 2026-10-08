@@ -4,6 +4,9 @@ extends Camera2D
 
 var is_dragging = false
 
+@export var max_zoom = 4.0;
+@export var min_zoom = .5;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -28,10 +31,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			var zoom_factor: float
 
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				zoom_factor = 1.1
+				zoom_factor = clampf(max_zoom / zoom.x, 1.0, 1.1)
 
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				zoom_factor = 0.9
+				zoom_factor = clampf(min_zoom / zoom.x, 0.9, 1.0)
 
 			position += (get_global_mouse_position() - position) * (1.0 - 1.0 / zoom_factor)
 			zoom *= zoom_factor
