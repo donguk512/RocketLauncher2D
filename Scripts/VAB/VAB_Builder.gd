@@ -37,6 +37,7 @@ func _on_lmb_pressed(event: InputEventMouseButton):
 	mouse_drag_start = mouse_world_pos
 		
 	if clicked_part:
+		print("clicked on part")
 		if shift_pressed:
 			selector.toggle(clicked_part)
 		elif clicked_part not in selector.selected_parts:
@@ -45,6 +46,7 @@ func _on_lmb_pressed(event: InputEventMouseButton):
 			
 		_start_dragging(mouse_world_pos)
 	else:
+		print("clicked on background")
 		selector.clear()
 		current_state = State.BOX_SELECTING
 		
@@ -57,7 +59,6 @@ func _on_lmb_released(_event: InputEventMouseButton) -> void:
 			_finish_box_select()
 	
 	current_state = State.IDLE
-	queue_redraw()
 	
 func _on_mouse_move(_event: InputEventMouseMotion) -> void:
 	var mouse_world_pos = get_global_mouse_position()
@@ -71,28 +72,32 @@ func _on_mouse_move(_event: InputEventMouseMotion) -> void:
 				mouse_drag_start, 
 				mouse_world_pos - mouse_drag_start
 			).abs()
-			queue_redraw()
+			selector.queue_redraw()
 
 
 func _process_drag(mouse_world_pos: Vector2) -> void:
 	var mouse_delta = mouse_world_pos - mouse_drag_start
 	
+	for part in selector.selected_parts:
+		part.global_position = part_start_positions[part] + mouse_delta
+		
 	var snap_offset = SnapSolver.calc_group_snap_offset(
 		selector.selected_parts,
 		get_tree().get_nodes_in_group("snap_point")
 	)
 	
 	for part in selector.selected_parts:
-		part.global_position = part_start_positions[part] + snap_offset
+		part.global_position += snap_offset
+		part.global_position = part.global_position.snapped(
+			Vector2.ONE * Constants.GRID_SIZE
+		)
 
 func _finish_drag() -> void:
 	for part in selector.selected_parts:
 		pass
 
 func _finish_box_select() -> void:
-	for part: PartBase in get_children():
-		if selector.box_rect.has_point(part.global_position):
-			selector.select(part)
+	selector.select_in_box(get_children())
 
 func _get_part_at_pos(world_pos: Vector2) -> PartBase:
 	var space_state = get_world_2d().direct_space_state
@@ -122,7 +127,4 @@ func _start_dragging(mouse_pos: Vector2):
 
 
 func _process(delta: float) -> void:
-	match current_state:
-		State.DRAGGING:
-			pass
-	
+	pass
