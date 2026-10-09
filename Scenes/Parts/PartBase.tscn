@@ -1,27 +1,24 @@
 [gd_scene format=3 uid="uid://32y544570foh"]
 
-[ext_resource type="Script" uid="uid://c3aw4xs3tt62h" path="res://Scripts/PartBase.gd" id="1_5r2n3"]
-[ext_resource type="Texture2D" uid="uid://fyudc3fsir3a" path="res://Assets/Textures/FuelTank.png" id="1_fq2eq"]
+[ext_resource type="Script" uid="uid://c3aw4xs3tt62h" path="res://Scripts/PartBase.gd" id="1_gtpif"]
+[ext_resource type="PackedScene" uid="uid://djv0sx1x4wu0s" path="res://Scenes/Parts/SnapPoint.tscn" id="2_4xajs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb70k"]
 size = Vector2(64, 64)
 
 [node name="PartBase" type="Node2D" unique_id=1603099264]
-script = ExtResource("1_5r2n3")
+script = ExtResource("1_gtpif")
 
 [node name="Area" type="Area2D" parent="." unique_id=1653321796]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Area" unique_id=2141481376]
 shape = SubResource("RectangleShape2D_tb70k")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=887115813]
-texture_filter = 1
-texture = ExtResource("1_fq2eq")
-
 [node name="SnapPoints" type="Node2D" parent="." unique_id=269346816]
 
-[node name="Top" type="Marker2D" parent="SnapPoints" unique_id=1062531298]
+[node name="Top" parent="SnapPoints" unique_id=115767949 instance=ExtResource("2_4xajs")]
 position = Vector2(0, -32)
 
-[node name="Bottom" type="Marker2D" parent="SnapPoints" unique_id=2057933069]
+[node name="Bottom" parent="SnapPoints" unique_id=2073727216 instance=ExtResource("2_4xajs")]
 position = Vector2(0, 32)
+rotation = 3.1415927

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b0llnkpkypwhk"]
+
+[ext_resource type="PackedScene" uid="uid://32y544570foh" path="res://Scenes/Parts/PartBase.tscn" id="1_ouuyg"]
+[ext_resource type="Script" uid="uid://bebohhd80r4ht" path="res://Scripts/FuelTank.gd" id="2_d0q8k"]
+[ext_resource type="Texture2D" uid="uid://fyudc3fsir3a" path="res://Assets/Textures/FuelTank.png" id="3_ahc3o"]
+
+[node name="FuelTank" unique_id=1603099264 instance=ExtResource("1_ouuyg")]
+script = ExtResource("2_d0q8k")
+fuel_mass = 0.0
+max_fuel_mass = 1.0
+icon = ExtResource("3_ahc3o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1" unique_id=821509991]
+texture_filter = 1
+texture = ExtResource("3_ahc3o")

@@ -6,7 +6,7 @@ func setup(part_scene):
 	# assigned_part = part_scene
 	var temp_part = part_scene.instantiate()
 	
-	$MarginContainer/Icon.texture = temp_part.icon
+	$Icon.texture = temp_part.icon
 	temp_part.queue_free()
 
 # Called when the node enters the scene tree for the first time.

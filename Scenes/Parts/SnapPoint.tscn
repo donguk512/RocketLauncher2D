@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://djv0sx1x4wu0s"]
+
+[ext_resource type="Script" uid="uid://c0ua7jlnafovu" path="res://Scripts/SnapPoint.gd" id="1_nfaim"]
+
+[node name="SnapPoint" type="Marker2D" unique_id=1803575829 groups=["snap_point"]]
+script = ExtResource("1_nfaim")

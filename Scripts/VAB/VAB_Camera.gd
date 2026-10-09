@@ -1,23 +1,17 @@
 extends Camera2D
 
-@onready var grid: ColorRect = $"../GridCanvas/Grid"
+@export var max_zoom: float = 4.0;
+@export var min_zoom: float = 0.5;
 
 var is_dragging = false
-
-@export var max_zoom = 4.0;
-@export var min_zoom = .5;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var mat = grid.material as ShaderMaterial
-	mat.set_shader_parameter("camera_position", global_position)
-	mat.set_shader_parameter("zoom", zoom)
-
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 
