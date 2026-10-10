@@ -5,9 +5,13 @@
 [ext_resource type="Script" uid="uid://dr4s4vphct5yo" path="res://Scripts/VAB/VAB_Builder.gd" id="3_8qigp"]
 [ext_resource type="Script" uid="uid://cepbselsqja76" path="res://Scripts/VAB/PartSelector.gd" id="4_1pr70"]
 [ext_resource type="Script" uid="uid://bssjma0e3pkbn" path="res://Scripts/VAB/VAB_Catalog.gd" id="4_gjiqf"]
+[ext_resource type="Script" uid="uid://nol0ooyfex2a" path="res://Scripts/VAB/VAB_Builder_Drag.gd" id="5_8qigp"]
+[ext_resource type="Script" uid="uid://c78ob8j40u52h" path="res://Scripts/VAB/VAB_BuilderState.gd" id="5_pa074"]
 [ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/Parts/FuelTanks/FuelTank.tscn" id="5_qorpw"]
 [ext_resource type="PackedScene" uid="uid://dcs2xvdbadm6p" path="res://Scenes/Parts/FuelTanks/FuelTank2.tscn" id="6_1pr70"]
+[ext_resource type="Script" uid="uid://b66i0agxhmsl0" path="res://Scripts/VAB/VAB_Builder_Idle.gd" id="6_dke4k"]
 [ext_resource type="Shader" uid="uid://dbftuxubj70m2" path="res://Shaders/VAB_Main.gdshader" id="7_jg6co"]
+[ext_resource type="Script" uid="uid://6cvix3qtcea0" path="res://Scripts/VAB/VAB_Builder_Box.gd" id="8_jg6co"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5h11f"]
 shader = ExtResource("7_jg6co")
@@ -26,12 +30,27 @@ script = ExtResource("1_qorpw")
 [node name="Camera" type="Camera2D" parent="." unique_id=1532760249]
 script = ExtResource("2_1pr70")
 
-[node name="Workspace" type="Node2D" parent="." unique_id=809178885]
+[node name="Builder" type="Node2D" parent="." unique_id=287055161]
+unique_name_in_owner = true
 z_index = 1
 script = ExtResource("3_8qigp")
 
-[node name="Parts" type="Node2D" parent="Workspace" unique_id=1513698776]
+[node name="Selector" type="Node2D" parent="Builder" unique_id=1513698776]
 script = ExtResource("4_1pr70")
+
+[node name="Workspace" type="Node2D" parent="Builder/Selector" unique_id=30132955]
+
+[node name="States" type="Node" parent="Builder" unique_id=1883881199]
+script = ExtResource("5_pa074")
+
+[node name="Idle" type="Node" parent="Builder/States" unique_id=899659393]
+script = ExtResource("6_dke4k")
+
+[node name="Drag" type="Node" parent="Builder/States" unique_id=2045194184]
+script = ExtResource("5_8qigp")
+
+[node name="Box" type="Node" parent="Builder/States" unique_id=1571858226]
+script = ExtResource("8_jg6co")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=415661210]
 
