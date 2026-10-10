@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://djv0sx1x4wu0s"]
 
 [ext_resource type="Script" uid="uid://c0ua7jlnafovu" path="res://Scripts/SnapPoint.gd" id="1_nfaim"]
+[ext_resource type="Texture2D" uid="uid://b52j6o7q65jgt" path="res://Assets/Textures/SnapMarker.png" id="2_trv02"]
 
 [node name="SnapPoint" type="Marker2D" unique_id=1803575829 groups=["snap_point"]]
 script = ExtResource("1_nfaim")
+
+[node name="Indicator" type="Sprite2D" parent="." unique_id=1911783409]
+visible = false
+texture_filter = 1
+texture = ExtResource("2_trv02")

@@ -26,12 +26,12 @@ script = ExtResource("1_qorpw")
 [node name="Camera" type="Camera2D" parent="." unique_id=1532760249]
 script = ExtResource("2_1pr70")
 
-[node name="PartSelector" type="Node2D" parent="." unique_id=809178885]
+[node name="Workspace" type="Node2D" parent="." unique_id=809178885]
 z_index = 1
-script = ExtResource("4_1pr70")
-
-[node name="Workspace" type="Node2D" parent="." unique_id=1513698776]
 script = ExtResource("3_8qigp")
+
+[node name="Parts" type="Node2D" parent="Workspace" unique_id=1513698776]
+script = ExtResource("4_1pr70")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=415661210]
 

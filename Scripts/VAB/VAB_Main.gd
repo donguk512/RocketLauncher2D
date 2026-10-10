@@ -18,4 +18,4 @@ func _process(delta: float) -> void:
 func _on_launch_pressed() -> void:
 	var rocket = RigidBody2D.new()
 	
-	var parts = workspace.get_children()
+	var parts = workspace.selector.get_children()

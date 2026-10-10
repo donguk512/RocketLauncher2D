@@ -9,20 +9,14 @@ size = Vector2(64, 128)
 
 [node name="FuelTank" unique_id=1603099264 instance=ExtResource("1_xtppk")]
 script = ExtResource("2_wmp5f")
-fuel_mass = 0.0
-max_fuel_mass = 2.0
 mass = 2.0
+fuel_mass = null
+max_fuel_mass = 2.0
 
 [node name="CollisionShape" parent="Area" parent_id_path=PackedInt32Array(1653321796) index="0" unique_id=2141481376]
 shape = SubResource("RectangleShape2D_8u64s")
 
-[node name="Top" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="0" unique_id=1062531298]
-position = Vector2(0, -64)
-
-[node name="Bottom" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="1" unique_id=2057933069]
-position = Vector2(0, 64)
-
-[node name="NinePatchRect" type="NinePatchRect" parent="." index="2" unique_id=1154237888]
+[node name="NinePatchRect" type="NinePatchRect" parent="." index="1" unique_id=1154237888]
 texture_filter = 1
 offset_left = -32.0
 offset_top = -64.0
@@ -33,3 +27,9 @@ patch_margin_left = 24
 patch_margin_top = 8
 patch_margin_right = 24
 patch_margin_bottom = 8
+
+[node name="Top" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="0" unique_id=115767949]
+position = Vector2(0, -64)
+
+[node name="Bottom" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="1" unique_id=2073727216]
+position = Vector2(0, 64)
