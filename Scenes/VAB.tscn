@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b66i0agxhmsl0" path="res://Scripts/VAB/VAB_Builder_Idle.gd" id="6_dke4k"]
 [ext_resource type="Shader" uid="uid://dbftuxubj70m2" path="res://Shaders/VAB_Main.gdshader" id="7_jg6co"]
 [ext_resource type="Script" uid="uid://6cvix3qtcea0" path="res://Scripts/VAB/VAB_Builder_Box.gd" id="8_jg6co"]
+[ext_resource type="PackedScene" uid="uid://cchggmioxxxto" path="res://Scenes/Parts/Capsule.tscn" id="12_jg6co"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5h11f"]
 shader = ExtResource("7_jg6co")
@@ -60,7 +61,7 @@ anchor_bottom = 1.0
 offset_right = 264.0
 grow_vertical = 2
 script = ExtResource("4_gjiqf")
-available_parts = Array[PackedScene]([ExtResource("5_qorpw"), ExtResource("6_1pr70")])
+available_parts = Array[PackedScene]([ExtResource("5_qorpw"), ExtResource("6_1pr70"), ExtResource("12_jg6co")])
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/CatalogPanel" unique_id=998676843]
 layout_mode = 1
