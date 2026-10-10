@@ -32,10 +32,4 @@ func _rotate_selection(quarters: int) -> void:
 		return
 	
 	selector.start_drag()
-	
 	VABTransform.rotate_parts(selector.selected_parts, quarters)
-	
-	if builder.current_state != builder.get_node("States/Drag"):
-		selector.finish_drag()
-		
-		

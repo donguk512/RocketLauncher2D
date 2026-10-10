@@ -23,3 +23,9 @@ func on_mouse_button_down():
 		builder.change_state("Drag")
 	else:
 		builder.change_state("Box")
+		
+
+func _rotate_selection(quarters: int) -> void:
+	super(quarters)
+	
+	selector.finish_drag()

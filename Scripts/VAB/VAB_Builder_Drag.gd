@@ -23,7 +23,8 @@ func input(event: InputEvent):
 				# Delete when dragged into catalog
 				if catalog.is_hovered:
 					selector.remove()
-				selector.finish_drag()
+				else:
+					selector.finish_drag()
 				
 				builder.change_state("Idle")
 
