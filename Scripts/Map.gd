@@ -2,10 +2,10 @@ extends Node2D
 
 @onready var universe: Universe = %Universe
 
-@export var min_zoom: float = 10000.0
-@export var max_zoom: float = 10000000.0
+@export var min_zoom: float = 5_000_000.0
+@export var max_zoom: float = 50_000_000_000.0
 
-var zoom = 500000.0
+var zoom = 500_000_000.0
 var offset: Vector2 = Vector2.ZERO
 var is_dragging = false
 
@@ -49,9 +49,12 @@ func _process(delta: float) -> void:
 	if not visible:
 		return
 	
+	var earth = universe.bodies.Earth
+	var screen_center = get_viewport_rect().size / 2.0
+	position = screen_center - (earth.global_position / zoom)
 	queue_redraw()
 
-var orbit_iter: int = 100
+var orbit_iter: int = 90
 		
 func _draw() -> void:
 	for planet_name: String in universe.bodies:

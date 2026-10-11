@@ -23,7 +23,7 @@ func init():
 	if parent_body:
 		mu = Constants.G * parent_body.mass
 		mean_motion = sqrt(mu / semi_major_axis ** 3)
-		print(self, " ", mean_motion)
+		print(name, " ", PI * 2.0 / mean_motion)
 
 func _draw():
 	draw_circle(
