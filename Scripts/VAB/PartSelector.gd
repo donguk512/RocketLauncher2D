@@ -1,6 +1,8 @@
 class_name PartSelector
 extends Node2D
 
+@onready var workspace: Node2D = %Workspace
+
 @export var selected_parts: Array[PartBase] = []
 @export var box_rect: Rect2
 @export var box_fill_color: Color = Color("#FFFFFF40")
@@ -36,7 +38,7 @@ func update_box(mouse_start_pos: Vector2, mouse_pos: Vector2):
 	queue_redraw()
 
 func select_in_box():
-	for part: PartBase in $Workspace.get_children():
+	for part: PartBase in workspace.get_all_parts():
 		if box_rect.has_point(part.global_position):
 			select(part)
 	
@@ -82,6 +84,7 @@ func remove():
 	for part in selected_parts:
 		part.queue_free()
 	clear()
+
 
 func _draw() -> void:
 	var zoom = get_viewport().get_camera_2d().zoom.x

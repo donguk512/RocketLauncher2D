@@ -1,4 +1,5 @@
 extends Node
+class_name Blueprint
 
 @onready var workspace: Node2D = %Workspace
 
@@ -65,7 +66,7 @@ func make_list(parts: Array[PartBase]) -> Array:
 			"type": part.part_name,
 			"x": int(part.global_position.x),
 			"y": int(part.global_position.y),
-			"r": int(part.rotation / PI * 2)
+			"r": int(part.rotation / PI * 4)
 		})
 	
 	return blueprint_data
@@ -83,7 +84,7 @@ func prompt_save(parts: Array[PartBase]) -> void:
 	dialog.use_native_dialog = true
 	
 	dialog.file_selected.connect(func(path: String):
-		_save_to_path(path, data)
+		JsonIO.save_to_path(path, data)
 		dialog.queue_free()
 	)
 	
@@ -101,8 +102,10 @@ func prompt_load() -> void:
 	dialog.use_native_dialog = true
 	
 	dialog.file_selected.connect(func(path: String):
-		_load_from_path(path)
 		dialog.queue_free()
+		
+		var blueprint_data = JsonIO.load_from_path(path)
+		spawn_parts(blueprint_data)
 	)
 	
 	dialog.canceled.connect(func(): dialog.queue_free())
@@ -111,38 +114,7 @@ func prompt_load() -> void:
 	dialog.popup_centered(Vector2(600, 400))
 
 
-func _save_to_path(path: String, data: Array) -> void:
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	
-	if file:
-		var json_string = JSON.stringify(data, "\t", false)
-		file.store_string(json_string)
-		file.close()
-		print("Saved blueprint at: ", path)
-	else:
-		printerr("Cannot save file: ", path)
-
-func _load_from_path(path: String):
-	var file = FileAccess.open(path, FileAccess.READ)
-	
-	if file:
-		var json_string = file.get_as_text()
-		var json = JSON.new()
-		var success = json.parse(json_string)
-		
-		file.close()
-		
-		if success == OK:
-			var blueprint_data = json.data
-			print("Successfully loaded blueprint!: ", path)
-			
-			_spawn_parts(blueprint_data)
-	else:
-		printerr("Cannot open file: ", path)
-	return {}
-
-
-func _spawn_parts(blueprint) -> void:
+func spawn_parts(blueprint) -> void:
 	for part_data in blueprint:
 		var part_scene: PackedScene = PartDB.part_names.get(part_data.type)
 		
@@ -154,6 +126,14 @@ func _spawn_parts(blueprint) -> void:
 		new_part.global_position = Vector2(
 			part_data.x, part_data.y
 		)
-		new_part.rotation = part_data.r * PI / 2
+		new_part.rotation = part_data.r * PI / 4
 		
 		workspace.add_child(new_part)
+	
+	await get_tree().process_frame
+	
+	var all_snaps = get_tree().get_nodes_in_group("snap_point")
+	
+	for child in workspace.get_all_parts():
+		if child is PartBase:
+			SnapSolver.link_sockets([child], all_snaps)

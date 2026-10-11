@@ -1,0 +1,98 @@
+{
+	"Sun": {
+		"mass": 1.98892e30,
+		"radius": 696340000.0,
+		"parent_body": "Barycenter",
+		"color": "FFFFFF"
+	},
+	"Mercury": {
+		"mass": 3.302e23,
+		"radius": 2439400.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 57908942.69739721,
+		"eccentricity": 0.2056387726280796,
+		"argument_of_periapsis": 29.20131274650819,
+		"mean_anomaly_at_epoch": 235.7816438347588,
+		"color": "808080"
+	},
+	"Venus": {
+		"mass": 4.8685e24,
+		"radius": 6051840.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 108210392.2959571,
+		"eccentricity": 0.006758517859041030,
+		"argument_of_periapsis": 54.91627143863312,
+		"mean_anomaly_at_epoch": 238.4934213733723,
+		"color": "FFFF00"
+	},
+	"Earth": {
+		"mass": 5.97219e24,
+		"radius": 6371000.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 149730383.9263777,
+		"eccentricity": 0.01675819290096360,
+		"argument_of_periapsis": 295.9074268179585,
+		"mean_anomaly_at_epoch": 279.0834176504057,
+		"color": "00FFFF"
+	},
+	"Mars": {
+		"mass": 6.4171e23,
+		"radius": 3389500.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 227939835.1186368,
+		"eccentricity": 0.09341308698501703,
+		"argument_of_periapsis": 286.6453404736926,
+		"mean_anomaly_at_epoch": 104.1100758359649,
+		"color": "FF7000"
+	},
+	"Jupiter": {
+		"mass": 1.89813e27,
+		"radius": 69911000.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 7.782629382723016E+08,
+		"eccentricity": 4.831531650887298E-02,
+		"argument_of_periapsis": 2.735346785445703E+02,
+		"mean_anomaly_at_epoch": 1.129009261477099E+02,
+		"color": "FFE080"
+	},
+	"Satern": {
+		"mass": 5.6834e26,
+		"radius": 58232000.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 1.427062949900852E+09,
+		"eccentricity": 5.528369243233335E-02,
+		"argument_of_periapsis": 3.388357475075151E+02,
+		"mean_anomaly_at_epoch": 2.848865751966093E+02,
+		"color": "FFE080"
+	},
+	"Uranus": {
+		"mass": 86.813e24,
+		"radius": 25362000.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 2.881771642253145E+09,
+		"eccentricity": 4.754239940867433E-02,
+		"argument_of_periapsis": 9.250083891584116E+01,
+		"mean_anomaly_at_epoch": 2.615930104570907E+02,
+		"color": "00FFFF"
+	},
+	"Neptune": {
+		"mass": 102.409e24,
+		"radius": 24624000.0,
+		"parent_body": "Sun",
+		"semi_major_axis": 4.497378918007974E+09,
+		"eccentricity": 9.867794249789121E-03,
+		"argument_of_periapsis": 2.827387430753017E+02,
+		"mean_anomaly_at_epoch": 3.090980108617301E+02,
+		"color": "0000FF"
+	},
+	"Moon": {
+		"mass": 7.349e22,
+		"radius": 1737530.0,
+		"parent_body": "Earth",
+		"semi_major_axis": 3.870403524028475E+05,
+		"eccentricity": 4.406826370642834E-02,
+		"argument_of_periapsis": 1.341538304129821E+02,
+		"mean_anomaly_at_epoch": 9.387975833212107E+01,
+		"color": "C8C8C8"
+	}
+}
