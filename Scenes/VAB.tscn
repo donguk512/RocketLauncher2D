@@ -86,16 +86,30 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 columns = 2
 
-[node name="LaunchButton" type="Button" parent="UI" unique_id=1432174765]
+[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=404460654]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -210.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 60.0
+offset_left = -200.0
+offset_bottom = 50.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 24
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer" unique_id=1793561470]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="SaveBlueprintButton" type="Button" parent="UI/MarginContainer/HBoxContainer" unique_id=1496575302]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "청사진 저장하기"
+
+[node name="LaunchButton" type="Button" parent="UI/MarginContainer/HBoxContainer" unique_id=1432174765]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "발사대로 이동"
 
 [node name="GridCanvas" type="CanvasLayer" parent="." unique_id=941199153]
@@ -113,8 +127,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-color = Color(1, 1, 1, 0)
 
 [connection signal="mouse_entered" from="UI/CatalogPanel" to="UI/CatalogPanel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UI/CatalogPanel" to="UI/CatalogPanel" method="_on_mouse_exited"]
-[connection signal="pressed" from="UI/LaunchButton" to="." method="_on_launch_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/SaveBlueprintButton" to="." method="_on_save_blueprint_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/LaunchButton" to="." method="_on_launch_pressed"]

@@ -9,8 +9,6 @@ func _ready():
 	change_state("Idle")
 
 func change_state(state_name: String):
-	print(state_name)
-	
 	current_state = $States.get_node(state_name)
 	current_state.enter()
 

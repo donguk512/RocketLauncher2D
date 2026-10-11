@@ -11,7 +11,9 @@ func on_mouse_button_down():
 		builder.get_world_2d().direct_space_state,
 		mouse_world_pos
 	)
-		
+	
+	print(clicked_part)
+	
 	if clicked_part:
 		if shift_pressed:
 			selector.toggle(clicked_part)
