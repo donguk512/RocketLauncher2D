@@ -5,6 +5,9 @@ extends Node2D
 @onready var camera: Camera2D = $Camera
 @onready var grid: ColorRect = $GridCanvas/Grid
 @onready var workspace: Node2D = $Builder/Selector/Workspace
+@onready var blueprint: Node = $BlueprintIO
+
+@export var blueprint_name: String = "제목 없는 청사진"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,16 +23,16 @@ func _on_launch_pressed() -> void:
 	var rocket = RigidBody2D.new()
 
 func _on_save_blueprint_pressed() -> void:
-	var all_parts: Array[PartBase] = []
+	
+	var parts: Array[PartBase] = []
 	
 	for part in workspace.get_children():
-		if part is PartBase:
-			all_parts.append(part)
-	
-	var clusters = VABBluprint.get_clusters(
-		all_parts, get_world_2d().direct_space_state
-	)
-	
-	print(clusters)
-	
-	
+		if part is not PartBase:
+			continue
+		parts.append(part)
+		
+	blueprint.prompt_save(parts)
+
+
+func _on_load_blueprint_pressed() -> void:
+	blueprint.prompt_load()

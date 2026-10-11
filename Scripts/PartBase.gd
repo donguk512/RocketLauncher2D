@@ -3,6 +3,8 @@ extends Node2D
 
 @export var mass: float = 1.0
 @export var icon: Texture2D
+@export var part_name: String = "unknown_part"
+
 @onready var area: Area2D = $Area
 @onready var collision_shape: CollisionShape2D = $Area/CollisionShape
 

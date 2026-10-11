@@ -88,7 +88,7 @@ static func get_boundary_socks(
 	for part in selected_parts:
 		for sock in part.get_snap_points():
 			# Socket connected internally needs to be filtered
-			if sock.connected_point and sock.connected_point.part in selected_set:
+			if sock.linked_point and sock.linked_point.part in selected_set:
 				continue
 			
 			boundaries.append(sock)
@@ -108,7 +108,7 @@ static func get_stationary_socks(
 		if outer_sock.part in selected_set:
 			continue
 		# Filter socket which is already connected
-		if outer_sock.connected_point != null:
+		if outer_sock.linked_point != null:
 			continue
 		
 		stationaries.append(outer_sock)

@@ -9,6 +9,7 @@ script = ExtResource("2_d0q8k")
 fuel_mass = 0.0
 max_fuel_mass = 1.0
 icon = ExtResource("3_ahc3o")
+part_name = "fuel_tank"
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="1" unique_id=821509991]
 texture_filter = 1

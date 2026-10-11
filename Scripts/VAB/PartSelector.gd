@@ -53,10 +53,10 @@ func start_drag() -> void:
 		part_start_positions[part] = part.global_position
 		
 		for socket in part.get_snap_points():
-			if not socket.connected_point:
+			if not socket.linked_point:
 				continue
 			
-			if not socket.connected_point.part in selected_parts:
+			if not socket.linked_point.part in selected_parts:
 				socket.unlink()
 
 func drag(offset: Vector2) -> void:

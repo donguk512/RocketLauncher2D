@@ -8,6 +8,7 @@ points = PackedVector2Array(32, 32, -32, 32, -8, -16, 8, -16)
 
 [node name="PartBase" unique_id=1603099264 instance=ExtResource("1_y7bdf")]
 icon = ExtResource("2_fc23p")
+part_name = "manned_control"
 
 [node name="CollisionShape" parent="Area" parent_id_path=PackedInt32Array(1653321796) index="0" unique_id=2141481376]
 shape = SubResource("ConvexPolygonShape2D_btkg4")
