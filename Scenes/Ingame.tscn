@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://rhjfs8vcvxl2"]
 
 [ext_resource type="Script" uid="uid://gibs0s7vmhwj" path="res://Scripts/God.gd" id="1_7e8yd"]
+[ext_resource type="Script" uid="uid://d24d03ykwo2s" path="res://Scripts/AssemblySpacecraft.gd" id="2_iit7f"]
 [ext_resource type="Script" uid="uid://y7o8ohyh80gw" path="res://Scripts/Map.gd" id="2_pkr1v"]
 [ext_resource type="Texture2D" uid="uid://bcwxc0ord2qjs" path="res://Assets/Textures/Triangle.png" id="3_iit7f"]
 
@@ -19,6 +20,7 @@ unique_name_in_owner = true
 script = ExtResource("1_7e8yd")
 
 [node name="Spacecraft" type="Node2D" parent="." unique_id=1771412294]
+script = ExtResource("2_iit7f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=850844228]
 

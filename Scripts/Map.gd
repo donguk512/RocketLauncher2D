@@ -3,7 +3,7 @@ extends Node2D
 @onready var universe: Universe = %Universe
 
 @export var min_zoom: float = 100_000.0
-@export var max_zoom: float = 50_000_000_000.0
+@export var max_zoom: float = 10_000_000_000.0
 
 var zoom = 500_000_000.0
 var offset: Vector2 = Vector2.ZERO
