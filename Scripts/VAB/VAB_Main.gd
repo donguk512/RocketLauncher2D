@@ -44,4 +44,4 @@ func _on_launch_pressed() -> void:
 			blueprint.make_list(cluster)
 		)
 	
-	get_tree().change_scene_to_file("res://Scenes/LaunchpadTest.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Ingame.tscn")

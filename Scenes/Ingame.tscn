@@ -36,7 +36,7 @@ texture = ExtResource("3_iit7f")
 [node name="PlanetaryOrbits" type="Node2D" parent="Map/Node2D" unique_id=462589612]
 
 [node name="TextureRect" type="TextureRect" parent="Map" unique_id=954239014]
-z_index = -1
+z_index = -2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

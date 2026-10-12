@@ -39,4 +39,4 @@ func _ready() -> void:
 		bodies[planet_name].init()
 	
 func _process(delta: float) -> void:
-	Global.time += delta * 86400.0 * 60.0
+	Global.time += delta * 86400.0 / 60.0
