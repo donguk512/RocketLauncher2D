@@ -3,6 +3,7 @@ class_name CelestialBody
 
 @export var mass: float
 @export var radius: float
+@export var absolute_position: Vector2
 @export var soi_radius: float
 
 @export var parent_body: Node2D
@@ -23,7 +24,6 @@ func init():
 	if parent_body:
 		mu = Constants.G * parent_body.mass
 		mean_motion = sqrt(mu / semi_major_axis ** 3)
-		print(name, " ", PI * 2.0 / mean_motion)
 
 func _draw():
 	draw_circle(
@@ -56,13 +56,16 @@ func calculate_pos(theta: float) -> Vector2:
 	var y = semi_major_axis * sqrt(1 - eccentricity ** 2) * sin(E)
 	
 	var local_pos = Vector2(x, y).rotated(arg_of_periapsis)
-	return parent_body.global_position + local_pos
+	
+	return parent_body.absolute_position + local_pos
 
-func _process(delta):
+func _physics_process(delta: float) -> void:
 	if not parent_body:
 		return
 	
 	var pos = calculate_pos(mean_anomaly_epoch + mean_motion * Global.time)
-	global_position = pos
+	absolute_position = pos
+	
+	global_position = absolute_position - Global.origin_offset
 	
 	queue_redraw()

@@ -4,8 +4,6 @@ class_name Universe
 const CELESTIAL_BODY = preload("res://Scenes/CelestialBody.tscn")
 const PLANETS_DATA_PATH = "res://Data/Planets.json"
 
-var bodies: Dictionary = {}
-
 # Planet data: 2026-10-11 00:00:00.0000 TDB
 
 
@@ -28,15 +26,16 @@ func _ready() -> void:
 			planet.debug_color = planet_data.color
 		
 		add_child(planet)
-		bodies[planet_name] = planet
+		Global.bodies[planet_name] = planet
 	
 	for planet_name in data:
 		if planet_name == "Sun":
 			continue
 		
 		var planet_data = data[planet_name]
-		bodies[planet_name].parent_body = bodies[planet_data.parent_body]
-		bodies[planet_name].init()
+		
+		Global.bodies[planet_name].parent_body = Global.bodies[planet_data.parent_body]
+		Global.bodies[planet_name].init()
 	
 func _process(delta: float) -> void:
-	Global.time += delta * 86400.0 * 30.0
+	Global.time += delta * 60.0

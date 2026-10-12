@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://rhjfs8vcvxl2"]
 
 [ext_resource type="Script" uid="uid://gibs0s7vmhwj" path="res://Scripts/God.gd" id="1_7e8yd"]
+[ext_resource type="Script" uid="uid://duubghesgessk" path="res://Scripts/World.gd" id="1_c5a3t"]
 [ext_resource type="Script" uid="uid://d24d03ykwo2s" path="res://Scripts/AssemblySpacecraft.gd" id="2_iit7f"]
 [ext_resource type="Script" uid="uid://y7o8ohyh80gw" path="res://Scripts/Map.gd" id="2_pkr1v"]
 [ext_resource type="Texture2D" uid="uid://bcwxc0ord2qjs" path="res://Assets/Textures/Triangle.png" id="3_iit7f"]
@@ -13,23 +14,25 @@ gradient = SubResource("Gradient_c5a3t")
 
 [node name="Ingame" type="Node2D" unique_id=1938959817]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1356286496]
+[node name="World" type="Node2D" parent="." unique_id=95707895]
+unique_name_in_owner = true
+script = ExtResource("1_c5a3t")
 
-[node name="Universe" type="Node2D" parent="." unique_id=81553548]
+[node name="Universe" type="Node2D" parent="World" unique_id=81553548]
 unique_name_in_owner = true
 script = ExtResource("1_7e8yd")
 
-[node name="Spacecraft" type="Node2D" parent="." unique_id=1771412294]
+[node name="Spacecrafts" type="Node2D" parent="World" unique_id=1771412294]
 script = ExtResource("2_iit7f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=850844228]
 
 [node name="Map" type="CanvasLayer" parent="." unique_id=1726652399]
+layer = -1
 
 [node name="Node2D" type="Node2D" parent="Map" unique_id=614446222]
+visible = false
 script = ExtResource("2_pkr1v")
-
-[node name="Line2D" type="Line2D" parent="Map/Node2D" unique_id=1966919242]
 
 [node name="ShipIcon" type="Sprite2D" parent="Map/Node2D" unique_id=1395180451]
 visible = false
@@ -38,7 +41,7 @@ texture = ExtResource("3_iit7f")
 [node name="PlanetaryOrbits" type="Node2D" parent="Map/Node2D" unique_id=462589612]
 
 [node name="TextureRect" type="TextureRect" parent="Map" unique_id=954239014]
-z_index = -2
+z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

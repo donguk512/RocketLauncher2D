@@ -38,7 +38,7 @@ func update_box(mouse_start_pos: Vector2, mouse_pos: Vector2):
 	queue_redraw()
 
 func select_in_box():
-	for part: PartBase in workspace.get_all_parts():
+	for part: PartBase in workspace.get_children():
 		if box_rect.has_point(part.global_position):
 			select(part)
 	

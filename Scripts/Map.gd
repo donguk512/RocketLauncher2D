@@ -31,8 +31,8 @@ func _ready() -> void:
 	var screen_center = get_viewport_rect().size / 2.0
 	position = screen_center
 	
-	for planet_name: String in universe.bodies:
-		var planet: CelestialBody = universe.bodies[planet_name]
+	for planet_name: String in Global.bodies:
+		var planet: CelestialBody = Global.bodies[planet_name]
 		var orbit_line_2d: Line2D = Line2D.new()
 		orbit_line_2d.width = 1.0
 		orbit_line_2d.default_color = Color(0.187, 0.187, 0.187, 1.0)
@@ -41,7 +41,7 @@ func _ready() -> void:
 		planet_orbit_points[planet_name] = {
 			lod.LOW: _calculate_orbit(planet, 90),
 			lod.MID: _calculate_orbit(planet, 360),
-			lod.HIGH: _calculate_orbit(planet, 1080) 
+			lod.HIGH: _calculate_orbit(planet, 1440) 
 		}
 		planet_orbit_lines[planet_name] = orbit_line_2d
 		
@@ -78,27 +78,27 @@ func _process(delta: float) -> void:
 	if not visible:
 		return
 	
-	var earth = universe.bodies.Earth
+	var earth = Global.bodies.Earth
 	var screen_center = get_viewport_rect().size / 2.0
 	# position = screen_center - (earth.global_position / zoom)
 		
 	queue_redraw()
 		
 func _draw() -> void:
-	for planet_name: String in universe.bodies:
-		var planet: CelestialBody = universe.bodies[planet_name]
+	for planet_name: String in Global.bodies:
+		var planet: CelestialBody = Global.bodies[planet_name]
 		
 		var radius = max(planet.radius / zoom**2, 3.0)
 		
 		draw_circle(
-			planet.global_position / zoom,
+			planet.absolute_position / zoom,
 			radius,
 			planet.debug_color,
 			true
 		)
 		draw_string(
 			ThemeDB.fallback_font, 
-			planet.global_position / zoom + Vector2(radius, radius),
+			planet.absolute_position / zoom + Vector2(radius, radius),
 			planet_name,
 			HORIZONTAL_ALIGNMENT_LEFT, 
 			-1,
@@ -120,5 +120,5 @@ func _draw() -> void:
 		orbit.points = planet_orbit_points[planet_name][target_lod]
 		
 		if planet.parent_body:
-			orbit.position = planet.parent_body.global_position / zoom
+			orbit.position = planet.parent_body.absolute_position / zoom
 		

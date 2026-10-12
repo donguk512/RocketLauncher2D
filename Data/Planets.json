@@ -33,6 +33,7 @@
 		"eccentricity": 0.01675819290096360,
 		"argument_of_periapsis": 295.9074268179585,
 		"mean_anomaly_at_epoch": 279.0834176504057,
+		"rotation_period": 86164.09,
 		"color": "00FFFF"
 	},
 	"Mars": {

@@ -4,7 +4,7 @@ extends Node2D
 @onready var builder: Node2D = $Builder
 @onready var camera: Camera2D = $Camera
 @onready var grid: ColorRect = $GridCanvas/Grid
-@onready var workspace: Workspace = %Workspace
+@onready var workspace: Node2D = %Workspace
 @onready var blueprint: Blueprint = $BlueprintIO
 
 @export var blueprint_name: String = "제목 없는 청사진"
@@ -23,7 +23,7 @@ func _on_save_blueprint_pressed() -> void:
 	
 	var parts: Array[PartBase] = []
 	
-	for part in workspace.get_all_parts():
+	for part in workspace.get_children():
 		if part is not PartBase:
 			continue
 		parts.append(part)
@@ -35,12 +35,22 @@ func _on_load_blueprint_pressed() -> void:
 
 
 func _on_launch_pressed() -> void:
+	var all_parts: Array[PartBase] = []
+	
+	for part in workspace.get_children():
+		if part is PartBase:
+			all_parts.append(part)
+	
 	var clusters = blueprint.group_linked_parts(
-		workspace.get_all_parts(), get_world_2d().direct_space_state
+		all_parts, get_world_2d().direct_space_state
+	)
+	
+	clusters.sort_custom(func(a, b):
+		return a.size > b.size
 	)
 	
 	for cluster in clusters:
-		Global.launch_blueprint.append(
+		Global.launch_blueprints.append(
 			blueprint.make_list(cluster)
 		)
 	

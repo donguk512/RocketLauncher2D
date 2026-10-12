@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://nol0ooyfex2a" path="res://Scripts/VAB/VAB_Builder_Drag.gd" id="5_8qigp"]
 [ext_resource type="Script" uid="uid://c78ob8j40u52h" path="res://Scripts/VAB/VAB_BuilderState.gd" id="5_pa074"]
 [ext_resource type="PackedScene" uid="uid://b0llnkpkypwhk" path="res://Scenes/Parts/FuelTanks/FuelTank.tscn" id="5_qorpw"]
-[ext_resource type="Script" uid="uid://c8ad6ar67vpxn" path="res://Scripts/VAB/VAB_Workspace.gd" id="5_xg5yd"]
 [ext_resource type="PackedScene" uid="uid://dcs2xvdbadm6p" path="res://Scenes/Parts/FuelTanks/FuelTank2.tscn" id="6_1pr70"]
 [ext_resource type="Script" uid="uid://b66i0agxhmsl0" path="res://Scripts/VAB/VAB_Builder_Idle.gd" id="6_dke4k"]
 [ext_resource type="Shader" uid="uid://dbftuxubj70m2" path="res://Shaders/VAB_Main.gdshader" id="7_jg6co"]
@@ -43,7 +42,6 @@ script = ExtResource("4_1pr70")
 
 [node name="Workspace" type="Node2D" parent="Builder/Selector" unique_id=30132955]
 unique_name_in_owner = true
-script = ExtResource("5_xg5yd")
 
 [node name="States" type="Node" parent="Builder" unique_id=1883881199]
 script = ExtResource("5_pa074")

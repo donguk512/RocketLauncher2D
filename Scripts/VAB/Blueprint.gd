@@ -105,7 +105,7 @@ func prompt_load() -> void:
 		dialog.queue_free()
 		
 		var blueprint_data = JsonIO.load_from_path(path)
-		spawn_parts(blueprint_data)
+		spawn_parts(blueprint_data, workspace)
 	)
 	
 	dialog.canceled.connect(func(): dialog.queue_free())
@@ -114,7 +114,7 @@ func prompt_load() -> void:
 	dialog.popup_centered(Vector2(600, 400))
 
 
-func spawn_parts(blueprint) -> void:
+static func spawn_parts(blueprint, parent: Node) -> void:
 	for part_data in blueprint:
 		var part_scene: PackedScene = PartDB.part_names.get(part_data.type)
 		
@@ -128,12 +128,12 @@ func spawn_parts(blueprint) -> void:
 		)
 		new_part.rotation = part_data.r * PI / 4
 		
-		workspace.add_child(new_part)
+		parent.add_child(new_part)
 	
-	await get_tree().process_frame
+	await parent.get_tree().process_frame
 	
-	var all_snaps = get_tree().get_nodes_in_group("snap_point")
+	var all_snaps = parent.get_tree().get_nodes_in_group("snap_point")
 	
-	for child in workspace.get_all_parts():
+	for child in parent.get_children():
 		if child is PartBase:
 			SnapSolver.link_sockets([child], all_snaps)
