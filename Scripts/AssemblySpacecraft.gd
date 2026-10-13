@@ -17,7 +17,7 @@ func _ready() -> void:
 		var spacecraft: Spacecraft = spacecraft.instantiate()
 		
 		spacecraft.absolute_position_x = earth.absolute_position_x 
-		spacecraft.absolute_position_y = earth.absolute_position_y + earth.radius + 10000
+		spacecraft.absolute_position_y = earth.absolute_position_y + earth.radius + 10000.0
 		
 		add_child(spacecraft)
 		
@@ -50,13 +50,7 @@ func _ready() -> void:
 	Global.origin_offset_x = active_ship.absolute_position_x
 	Global.origin_offset_y = active_ship.absolute_position_y
 	
-	var new_transform = active_ship.global_transform
-	new_transform.origin = Vector2.ZERO
-	
-	PhysicsServer2D.body_set_state(active_ship.get_rid(), 
-		PhysicsServer2D.BODY_STATE_TRANSFORM, new_transform
-	)
-	
+	active_ship.global_position = Vector2.ZERO
 	
 	var camera = Camera2D.new()
 	# camera.position_smoothing_enabled = true

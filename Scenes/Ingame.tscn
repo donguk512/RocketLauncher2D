@@ -28,7 +28,6 @@ script = ExtResource("2_iit7f")
 [node name="UI" type="CanvasLayer" parent="." unique_id=850844228]
 
 [node name="Map" type="CanvasLayer" parent="." unique_id=1726652399]
-visible = false
 
 [node name="Node2D" type="Node2D" parent="Map" unique_id=614446222]
 script = ExtResource("2_pkr1v")

@@ -31,7 +31,7 @@ var points: Array[Vector2] = []
 
 func _ready():
 	var shape = CircleShape2D.new()
-	shape.radius = radius
+	shape.radius = 1.0#radius
 	collision_shape.shape = shape
 	
 	for i in range(num_points):

@@ -7,7 +7,7 @@ extends Node2D
 @export var min_zoom: float = 10_000.0
 @export var max_zoom: float = 10_000_000_000.0
 
-var zoom = 10_000.0
+var zoom = 10_000_000.0
 var offset: Vector2 = Vector2.ZERO
 var is_dragging = false
 

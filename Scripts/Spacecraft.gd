@@ -29,7 +29,7 @@ func _find_camera() -> void:
 
 func _physics_process(delta: float) -> void:
 	absolute_position_x = global_position.x + Global.origin_offset_x
-	absolute_position_y = global_position.x + Global.origin_offset_y
+	absolute_position_y = global_position.y + Global.origin_offset_y
 	
 	var total_gravity_force = Vector2.ZERO
 	
@@ -46,6 +46,10 @@ func _physics_process(delta: float) -> void:
 		) * (Global.time_scale ** 2)
 		
 	self.apply_central_force(total_gravity_force)
+	
+	print("velocity ", linear_velocity)
+	print("global ", global_position)
+	print("abs ", absolute_position_x, ' ', absolute_position_y)
 
 
 func _unhandled_input(event: InputEvent) -> void:
