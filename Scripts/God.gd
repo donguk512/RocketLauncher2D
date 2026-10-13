@@ -18,7 +18,7 @@ func _ready() -> void:
 		planet.mass = planet_data.mass
 		planet.radius = planet_data.radius
 		
-		if planet_data.parent_body != "Barycenter":
+		if planet_data.parent_body != "Origin":
 			planet.mean_anomaly_epoch = planet_data.mean_anomaly_at_epoch * PI / 180.0
 			planet.eccentricity = planet_data.eccentricity
 			planet.semi_major_axis = planet_data.semi_major_axis
@@ -38,4 +38,4 @@ func _ready() -> void:
 		Global.bodies[planet_name].init()
 	
 func _process(delta: float) -> void:
-	Global.time += delta * 60.0
+	Global.time += delta * Global.time_scale

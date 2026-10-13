@@ -2,7 +2,7 @@
 	"Sun": {
 		"mass": 1.98892e30,
 		"radius": 696340000.0,
-		"parent_body": "Barycenter",
+		"parent_body": "Origin",
 		"color": "FFFFFF"
 	},
 	"Mercury": {
@@ -34,7 +34,7 @@
 		"argument_of_periapsis": 295.9074268179585,
 		"mean_anomaly_at_epoch": 279.0834176504057,
 		"rotation_period": 86164.09,
-		"color": "00FFFF"
+		"color": "00A0FF"
 	},
 	"Mars": {
 		"mass": 6.4171e23,

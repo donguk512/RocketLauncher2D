@@ -1,11 +1,13 @@
 extends Node2D
 
 @onready var universe: Universe = %Universe
+@onready var ship_icon: Sprite2D = $ShipIcon
+@onready var spacecrafts: Node2D = $"../../World/Spacecrafts"
 
-@export var min_zoom: float = 100_000.0
+@export var min_zoom: float = 10_000.0
 @export var max_zoom: float = 10_000_000_000.0
 
-var zoom = 500_000_000.0
+var zoom = 10_000.0
 var offset: Vector2 = Vector2.ZERO
 var is_dragging = false
 
@@ -20,7 +22,7 @@ func _calculate_orbit(planet: CelestialBody, iteration: int) -> PackedVector2Arr
 	
 	for i in range(iteration):
 		var pos = planet.calculate_pos(i / float(iteration) * PI * 2.0)
-		points.append(pos / min_zoom)
+		points.append(Vector2(pos[0], pos[1]) / min_zoom)
 	
 	points.append(points[0])
 	
@@ -29,13 +31,13 @@ func _calculate_orbit(planet: CelestialBody, iteration: int) -> PackedVector2Arr
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var screen_center = get_viewport_rect().size / 2.0
-	position = screen_center
+	#position = screen_center
 	
 	for planet_name: String in Global.bodies:
 		var planet: CelestialBody = Global.bodies[planet_name]
 		var orbit_line_2d: Line2D = Line2D.new()
 		orbit_line_2d.width = 1.0
-		orbit_line_2d.default_color = Color(0.187, 0.187, 0.187, 1.0)
+		orbit_line_2d.default_color = Color(0.25, 0.25, 0.25, 1.0)
 		orbit_line_2d.z_index = -1
 		
 		planet_orbit_points[planet_name] = {
@@ -48,9 +50,10 @@ func _ready() -> void:
 		orbit_line_2d.points = planet_orbit_points[planet_name][lod.LOW]
 		add_child(orbit_line_2d)
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_map"):
-		self.visible = !self.visible
+		get_parent().visible = !get_parent().visible
 
 	if event is InputEventMouseButton:
 		# Click
@@ -78,17 +81,18 @@ func _process(delta: float) -> void:
 	if not visible:
 		return
 	
-	var earth = Global.bodies.Earth
 	var screen_center = get_viewport_rect().size / 2.0
-	# position = screen_center - (earth.global_position / zoom)
 		
 	queue_redraw()
+	
+	var earth = Global.bodies.Earth
+	position = screen_center - (earth.absolute_position / zoom)
 		
 func _draw() -> void:
 	for planet_name: String in Global.bodies:
 		var planet: CelestialBody = Global.bodies[planet_name]
 		
-		var radius = max(planet.radius / zoom**2, 3.0)
+		var radius = max(planet.radius / zoom, 3.0)
 		
 		draw_circle(
 			planet.absolute_position / zoom,
@@ -121,4 +125,11 @@ func _draw() -> void:
 		
 		if planet.parent_body:
 			orbit.position = planet.parent_body.absolute_position / zoom
-		
+	
+	var ship: Spacecraft = spacecrafts.active_ship
+	
+	if ship:
+		ship_icon.position = Vector2(
+			ship.absolute_position_x, ship.absolute_position_y
+		) / zoom
+		ship_icon.rotation = ship.rotation

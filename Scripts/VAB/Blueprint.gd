@@ -114,7 +114,9 @@ func prompt_load() -> void:
 	dialog.popup_centered(Vector2(600, 400))
 
 
-static func spawn_parts(blueprint, parent: Node) -> void:
+static func spawn_parts(blueprint, parent: Node) -> Array[PartBase]:
+	var added_parts: Array[PartBase] = []
+	
 	for part_data in blueprint:
 		var part_scene: PackedScene = PartDB.part_names.get(part_data.type)
 		
@@ -129,11 +131,6 @@ static func spawn_parts(blueprint, parent: Node) -> void:
 		new_part.rotation = part_data.r * PI / 4
 		
 		parent.add_child(new_part)
-	
-	await parent.get_tree().process_frame
-	
-	var all_snaps = parent.get_tree().get_nodes_in_group("snap_point")
-	
-	for child in parent.get_children():
-		if child is PartBase:
-			SnapSolver.link_sockets([child], all_snaps)
+		added_parts.append(new_part)
+		
+	return added_parts

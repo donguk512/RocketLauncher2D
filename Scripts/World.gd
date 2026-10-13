@@ -12,9 +12,12 @@ func _physics_process(delta: float) -> void:
 	if not active_ship:
 		return
 	
-	print("ABS: ", active_ship.absolute_position)
-	print("GLO: ", active_ship.global_position)
-	print("OFS: ", Global.origin_offset)
-	
 	if active_ship.global_position.length() > origin_shift_threshold:
-		Global.origin_offset = active_ship.absolute_position
+		Global.origin_offset_x = active_ship.absolute_position_x
+		Global.origin_offset_y = active_ship.absolute_position_y
+		
+		for ship in spacecrafts.get_children():
+			if ship is Spacecraft:
+				var ship_t = ship.global_transform
+				ship_t.origin -= active_ship.global_position
+				PhysicsServer2D.body_set_state(ship.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, ship_t)

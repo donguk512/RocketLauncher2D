@@ -32,6 +32,14 @@ func _on_save_blueprint_pressed() -> void:
 
 func _on_load_blueprint_pressed() -> void:
 	blueprint.prompt_load()
+	
+	await get_tree().process_frame
+	
+	var all_snaps = get_tree().get_nodes_in_group("snap_point")
+	
+	for child in workspace.get_children():
+		if child is PartBase:
+			SnapSolver.link_sockets([child], all_snaps)
 
 
 func _on_launch_pressed() -> void:
@@ -46,7 +54,7 @@ func _on_launch_pressed() -> void:
 	)
 	
 	clusters.sort_custom(func(a, b):
-		return a.size > b.size
+		return a.size() > b.size()
 	)
 	
 	for cluster in clusters:
