@@ -6,6 +6,7 @@ extends Node2D
 @onready var grid: ColorRect = $GridCanvas/Grid
 @onready var workspace: Node2D = %Workspace
 @onready var blueprint: Blueprint = $BlueprintIO
+@onready var stages: StageUI = $UI/Stages
 
 @export var blueprint_name: String = "제목 없는 청사진"
 
@@ -29,7 +30,8 @@ func _on_load_blueprint_pressed() -> void:
 	for child in workspace.get_children():
 		if child is PartBase:
 			SnapSolver.link_sockets([child], all_snaps)
-			
+	
+	stages.scan_parts(workspace.get_children())
 
 func _on_save_blueprint_pressed() -> void:
 	

@@ -47,7 +47,9 @@ func _ready() -> void:
 		ship.center_of_mass = center_of_mass / total_mass
 		ship.mass = total_mass
 		
-		if not part.stage_index in stages:
+		print(stages)
+		print(part.stage_index)
+		if part.stage_index != -1 and not part.stage_index in stages:
 			stages.append(part.stage_index)
 			stage_ui.make_stage()
 		

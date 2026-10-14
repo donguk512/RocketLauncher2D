@@ -38,9 +38,6 @@ func make_stage():
 		var my_idx = stage_nodes.find(stage_ui)
 		_on_stage_button_clicked(my_idx)
 	)
-	
-	# 방금 만든 새 스테이지를 즉시 선택 상태로 만듦
-	_on_stage_button_clicked(stage_nodes.size() - 1)
 
 func _on_stage_button_clicked(idx: int) -> void:
 	# 이미 선택된 스테이지를 다시 누르면 선택 해제 (일반 조립 모드로 복귀)
@@ -67,7 +64,6 @@ func refresh_stage_icons(all_parts: Array) -> void:
 			child.queue_free()
 		
 		for part in all_parts:
-			print(part, part.stage_index)
 			if part is PartBase and part.stage_index == i:
 				var tex_rect := TextureRect.new()
 				tex_rect.texture = part.icon
@@ -76,3 +72,11 @@ func refresh_stage_icons(all_parts: Array) -> void:
 				tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 				tex_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				icon_container.add_child(tex_rect)
+
+func scan_parts(parts):
+	for part: PartBase in parts:
+		if part.stage_index == -1:
+			continue
+			
+		if not stage_nodes[part.stage_index]:
+			make_stage()

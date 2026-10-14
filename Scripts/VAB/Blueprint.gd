@@ -67,13 +67,16 @@ func serialize(parts: Array[PartBase]) -> Array:
 	var pivot = aabb.position + aabb.size * Vector2(0.5, 1.0)
 	
 	for part: PartBase in parts:
-		blueprint_data.append({
+		var part_data := {
 			"type": part.part_name,
 			"x": int((part.global_position - pivot).x),
 			"y": int((part.global_position - pivot).y),
 			"r": int(part.rotation / PI * 4),
-			"stage": part.get("stage_index")
-		})
+		}
+		if part.get("stage_index") != null:
+			part_data.stage = part.stage_index
+		
+		blueprint_data.append(part_data)
 	
 	return blueprint_data
 
@@ -123,7 +126,7 @@ func prompt_load() -> void:
 static func spawn_parts(blueprint, parent: Node) -> Array[PartBase]:
 	var added_parts: Array[PartBase] = []
 	
-	for part_data in blueprint:
+	for part_data: Dictionary in blueprint:
 		var part_scene: PackedScene = PartDB.part_names.get(part_data.type)
 		
 		if not part_scene:
@@ -135,7 +138,7 @@ static func spawn_parts(blueprint, parent: Node) -> Array[PartBase]:
 			part_data.x, part_data.y
 		)
 		new_part.rotation = part_data.r * PI / 4
-		new_part.stage_index = part_data.get("stage_index", -1)
+		new_part.stage_index = part_data.get("stage", -1) 
 		
 		parent.add_child(new_part)
 		added_parts.append(new_part)
