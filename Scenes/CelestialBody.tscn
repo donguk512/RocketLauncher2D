@@ -9,7 +9,9 @@ script = ExtResource("1_1vw3g")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=300696334]
 
-[node name="Ground" type="AnimatableBody2D" parent="." unique_id=668471560]
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1557521547]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=478862247]
 shape = SubResource("CircleShape2D_tb70k")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=124854671]

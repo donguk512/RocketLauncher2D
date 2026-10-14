@@ -3,6 +3,5 @@
 [ext_resource type="Script" uid="uid://dd1t5ckrud8bk" path="res://Scripts/Spacecraft.gd" id="1_rhlhl"]
 
 [node name="Spacecraft" type="RigidBody2D" unique_id=2091945983]
-mass = 1000.0
 gravity_scale = 0.0
 script = ExtResource("1_rhlhl")

@@ -16,17 +16,19 @@ func _ready() -> void:
 		
 		planet.name = planet_name
 		planet.mass = planet_data.mass
-		planet.radius = planet_data.radius
+		planet.radius = planet_data.radius * Constants.GRID_SIZE_BIG * Global.world_scale
 		
 		if planet_data.parent_body != "Origin":
 			planet.mean_anomaly_epoch = planet_data.mean_anomaly_at_epoch * PI / 180.0
 			planet.eccentricity = planet_data.eccentricity
-			planet.semi_major_axis = planet_data.semi_major_axis
+			planet.semi_major_axis = planet_data.semi_major_axis * Constants.GRID_SIZE_BIG * Global.world_scale
 			planet.arg_of_periapsis = planet_data.argument_of_periapsis
 			planet.debug_color = planet_data.color
 		
 		add_child(planet)
 		Global.bodies[planet_name] = planet
+		
+	Global.frame_body = Global.bodies.Earth
 	
 	for planet_name in data:
 		if planet_name == "Sun":
@@ -37,5 +39,5 @@ func _ready() -> void:
 		Global.bodies[planet_name].parent_body = Global.bodies[planet_data.parent_body]
 		Global.bodies[planet_name].init()
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	Global.time += delta * Global.time_scale

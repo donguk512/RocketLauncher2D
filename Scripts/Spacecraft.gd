@@ -4,11 +4,8 @@ class_name Spacecraft
 var absolute_position_x: float = 0.0
 var absolute_position_y: float = 0.0
 
-@onready var universe: Universe = %Universe
-@onready var world: SpaceWorld = %World
-
-@export var max_zoom: float = 4.0
-@export var min_zoom: float = 0.00001
+@export var max_zoom: float = 16.0
+@export var min_zoom: float = 0.0001
 
 var camera: Camera2D
 
@@ -27,29 +24,36 @@ func _find_camera() -> void:
 			camera = child
 			break
 
-func _physics_process(delta: float) -> void:
-	absolute_position_x = global_position.x + Global.origin_offset_x
-	absolute_position_y = global_position.y + Global.origin_offset_y
+func _calc_gravity(body: CelestialBody, x: float, y: float) -> Vector2:
+	var dx = (body.absolute_position_x - absolute_position_x) / Constants.GRID_SIZE_BIG
+	var dy = (body.absolute_position_y - absolute_position_y) / Constants.GRID_SIZE_BIG
+		
+	var distance_squared = dx*dx + dy*dy
+	var direction = Vector2(dx, dy)
 	
-	var total_gravity_force = Vector2.ZERO
+	return direction.normalized() * (
+		Constants.G * body.mass / distance_squared) * (Global.time_scale ** 2)
+
+
+func _physics_process(delta: float) -> void:
+	var frame_body := Global.frame_body
+	var acceleration := Vector2.ZERO
+	
+	absolute_position_x = (
+		frame_body.absolute_position_x + global_position.x + Global.origin_offset_x)
+	absolute_position_y = (
+		frame_body.absolute_position_y + global_position.y + Global.origin_offset_y)
 	
 	for planet_name in Global.bodies:
 		var planet: CelestialBody = Global.bodies[planet_name]
+		acceleration += _calc_gravity(planet, absolute_position_x, absolute_position_y)
 		
-		var dir_x = planet.absolute_position_x - absolute_position_x
-		var dir_y = planet.absolute_position_y - absolute_position_y
-		var direction = Vector2(dir_x, dir_y)
-		var distance_sqared = direction.length_squared()
+		if planet != frame_body:
+			acceleration -= _calc_gravity(
+				planet, frame_body.absolute_position_x, frame_body.absolute_position_y)
+				# tidal only
 		
-		total_gravity_force += direction.normalized() * (
-			Constants.G * planet.mass * mass / distance_sqared
-		) * (Global.time_scale ** 2)
-		
-	self.apply_central_force(total_gravity_force)
-	
-	print("velocity ", linear_velocity)
-	print("global ", global_position)
-	print("abs ", absolute_position_x, ' ', absolute_position_y)
+	self.apply_central_force(acceleration * mass)
 
 
 func _unhandled_input(event: InputEvent) -> void:

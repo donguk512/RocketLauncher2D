@@ -5,7 +5,7 @@ extends Node2D
 @onready var spacecrafts: Node2D = $"../../World/Spacecrafts"
 
 @export var min_zoom: float = 10_000.0
-@export var max_zoom: float = 10_000_000_000.0
+@export var max_zoom: float = 1_000_000_000_000.0
 
 var zoom = 10_000_000.0
 var offset: Vector2 = Vector2.ZERO
@@ -22,7 +22,7 @@ func _calculate_orbit(planet: CelestialBody, iteration: int) -> PackedVector2Arr
 	
 	for i in range(iteration):
 		var pos = planet.calculate_pos(i / float(iteration) * PI * 2.0)
-		points.append(Vector2(pos[0], pos[1]) / min_zoom)
+		points.append(Vector2(pos[0], pos[1]) / max_zoom)
 	
 	points.append(points[0])
 	
@@ -55,6 +55,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_map"):
 		get_parent().visible = !get_parent().visible
 
+	if not get_parent().visible:
+		return
+		
 	if event is InputEventMouseButton:
 		# Click
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
@@ -64,9 +67,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			var zoom_factor: float = 1.0
 			
 			if event.is_action_pressed("zoom_in"):
-				zoom_factor = clampf(min_zoom / zoom, 0.9, 1.0)
+				zoom_factor = clampf(min_zoom / zoom, 0.8, 1.0)
 			else:
-				zoom_factor = clampf(max_zoom / zoom, 1.0, 1.1)
+				zoom_factor = clampf(max_zoom / zoom, 1.0, 1.2)
 
 			position += (get_global_mouse_position() - position) * (1.0 - 1.0 / zoom_factor)
 			zoom *= zoom_factor
@@ -119,8 +122,8 @@ func _draw() -> void:
 		
 		var orbit: Line2D = planet_orbit_lines[planet_name]
 		
-		orbit.scale = Vector2.ONE * min_zoom / zoom
-		orbit.width = 1.0 / min_zoom * zoom
+		orbit.scale = Vector2.ONE * max_zoom / zoom
+		orbit.width = 1.0 / max_zoom * zoom
 		orbit.points = planet_orbit_points[planet_name][target_lod]
 		
 		if planet.parent_body:
