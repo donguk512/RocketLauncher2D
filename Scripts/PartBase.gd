@@ -9,6 +9,7 @@ extends Node2D
 @onready var collision_shape: CollisionShape2D = $Area/CollisionShape
 
 var highlighted: bool = false
+var stage_index: int = -1
 
 func _ready() -> void:
 	pass
@@ -37,4 +38,4 @@ func _draw() -> void:
 		var zoom = get_viewport().get_camera_2d().zoom.x
 		var rect = collision_shape.shape.get_rect().grow(1.0 / zoom)
 		
-		draw_rect(rect, Color(1.0, 0.0, 1.0, 1.0), false, 2.0 / zoom)
+		draw_rect(rect, Color(1.0, 1.0, 1.0, 1.0), false, 2.0 / zoom)

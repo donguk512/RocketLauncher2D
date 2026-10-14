@@ -14,10 +14,7 @@ static var _rotate_functions = [
 		return vec.orthogonal()
 ]
 
-static func rotate_parts(
-	parts: Array[PartBase], 
-	quarters: int
-):
+static func get_aabb(parts: Array[PartBase]) -> Rect2:
 	var min_pos = Vector2( INF, INF)
 	var max_pos = Vector2(-INF,-INF)
 	
@@ -30,7 +27,14 @@ static func rotate_parts(
 		max_pos.x = max(max_pos.x, g_rect.end.x)
 		max_pos.y = max(max_pos.y, g_rect.end.y)
 	
-	var pivot = (min_pos + max_pos) / 2.0
+	return Rect2(min_pos, max_pos - min_pos)
+
+static func rotate_parts(
+	parts: Array[PartBase], 
+	quarters: int
+):
+	var aabb := get_aabb(parts)
+	var pivot = aabb.position + aabb.size / 2.0
 	pivot = pivot.snapped(Vector2.ONE * Constants.GRID_SIZE)
 	
 	quarters %= 4

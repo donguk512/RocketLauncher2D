@@ -1,6 +1,6 @@
 extends Node
 
-var launch_blueprints: Array[Array] = []
+var launch_blueprint: Array = []
 var time: float = 0.0
 var time_scale: float = 0.1
 var world_scale: float = 0.1

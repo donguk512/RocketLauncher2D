@@ -2,11 +2,17 @@ extends Node2D
 
 @onready var selector: PartSelector = $Selector
 @onready var workspace: Node2D = $Selector/Workspace
+@onready var stages_ui: MarginContainer = $"../UI/Stages"
+@onready var staging: BuilderState = $States/Staging
 
 var current_state: BuilderState
 
 func _ready():
 	change_state("Idle")
+	
+	stages_ui.stage_selected.connect(func(index):
+		staging.on_stage_selected(index)
+		change_state("Staging"))
 
 func change_state(state_name: String):
 	current_state = $States.get_node(state_name)

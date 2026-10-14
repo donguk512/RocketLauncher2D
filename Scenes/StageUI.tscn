@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dk8xd1khm1rr0"]
+
+[ext_resource type="Script" uid="uid://d1ex755r1pv8r" path="res://Scripts/VAB/VAB_StageUI.gd" id="1_x345u"]
+
+[node name="Stages" type="MarginContainer" unique_id=178881947]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_x345u")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=119137002]
+layout_mode = 2
+horizontal_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1830918600]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="PlusButton" type="Button" parent="ScrollContainer/VBoxContainer" unique_id=1386399298]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "+"
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/PlusButton" to="." method="_on_plus_button_pressed"]

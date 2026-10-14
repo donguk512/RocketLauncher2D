@@ -19,17 +19,6 @@ func _process(_delta: float) -> void:
 	mat.set_shader_parameter("camera_position", camera.global_position)
 	mat.set_shader_parameter("zoom", camera.zoom)
 
-func _on_save_blueprint_pressed() -> void:
-	
-	var parts: Array[PartBase] = []
-	
-	for part in workspace.get_children():
-		if part is not PartBase:
-			continue
-		parts.append(part)
-		
-	blueprint.prompt_save(parts)
-
 func _on_load_blueprint_pressed() -> void:
 	blueprint.prompt_load()
 	
@@ -40,6 +29,18 @@ func _on_load_blueprint_pressed() -> void:
 	for child in workspace.get_children():
 		if child is PartBase:
 			SnapSolver.link_sockets([child], all_snaps)
+			
+
+func _on_save_blueprint_pressed() -> void:
+	
+	var parts: Array[PartBase] = []
+	
+	for part in workspace.get_children():
+		if part is not PartBase:
+			continue
+		parts.append(part)
+		
+	blueprint.prompt_save(parts, [])
 
 
 func _on_launch_pressed() -> void:
@@ -52,14 +53,19 @@ func _on_launch_pressed() -> void:
 	var clusters = blueprint.group_linked_parts(
 		all_parts, get_world_2d().direct_space_state
 	)
-	
 	clusters.sort_custom(func(a, b):
-		return a.size() > b.size()
-	)
+		return a.size() > b.size())
 	
-	for cluster in clusters:
-		Global.launch_blueprints.append(
-			blueprint.make_list(cluster)
-		)
+	var main_cluster = clusters[0]
 	
+	for cluster: Array[PartBase] in clusters:
+		for part in cluster:
+			if part is Module:
+				main_cluster = cluster
+				break
+	
+	var bp = blueprint.serialize(main_cluster)
+		
+	Global.launch_blueprint = bp
+		
 	get_tree().change_scene_to_file("res://Scenes/Ingame.tscn")

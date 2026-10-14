@@ -2,8 +2,10 @@ extends Node
 class_name Blueprint
 
 @onready var workspace: Node2D = %Workspace
+@onready var stage_ui: StageUI = $"../UI/Stages"
 
 const TOLERANCE_VECTOR: Vector2 = Vector2.ONE * 1.05
+
 
 func group_linked_parts(
 	all_parts: Array[PartBase],
@@ -58,23 +60,27 @@ func group_linked_parts(
 	return clusters
 
 
-func make_list(parts: Array[PartBase]) -> Array:
-	var blueprint_data: Array = []
+func serialize(parts: Array[PartBase]) -> Array:
+	var blueprint_data := []
+	
+	var aabb := VABTransform.get_aabb(parts)
+	var pivot = aabb.position + aabb.size * Vector2(0.5, 1.0)
 	
 	for part: PartBase in parts:
 		blueprint_data.append({
 			"type": part.part_name,
-			"x": int(part.global_position.x),
-			"y": int(part.global_position.y),
-			"r": int(part.rotation / PI * 4)
+			"x": int((part.global_position - pivot).x),
+			"y": int((part.global_position - pivot).y),
+			"r": int(part.rotation / PI * 4),
+			"stage": part.get("stage_index")
 		})
 	
 	return blueprint_data
 
 
 
-func prompt_save(parts: Array[PartBase]) -> void:
-	var data = make_list(parts)
+func prompt_save(parts: Array[PartBase], stages: Array) -> void:
+	var data = serialize(parts)
 	
 	var dialog = FileDialog.new()
 	dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
@@ -129,6 +135,7 @@ static func spawn_parts(blueprint, parent: Node) -> Array[PartBase]:
 			part_data.x, part_data.y
 		)
 		new_part.rotation = part_data.r * PI / 4
+		new_part.stage_index = part_data.get("stage_index", -1)
 		
 		parent.add_child(new_part)
 		added_parts.append(new_part)

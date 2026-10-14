@@ -8,6 +8,7 @@ var absolute_position_y: float = 0.0
 @export var min_zoom: float = 0.0001
 
 var camera: Camera2D
+var throttle: float = 0.0
 
 func _ready() -> void:
 	call_deferred("_find_camera")
@@ -22,6 +23,7 @@ func _find_camera() -> void:
 	for child in get_children():
 		if child is Camera2D:
 			camera = child
+			camera.ignore_rotation = false
 			break
 
 func _calc_gravity(body: CelestialBody, x: float, y: float) -> Vector2:
@@ -55,6 +57,11 @@ func _physics_process(delta: float) -> void:
 		
 	self.apply_central_force(acceleration * mass)
 
+func _process(delta: float) -> void:
+	var frame_body := Global.frame_body
+	
+	camera.global_rotation = - (
+		camera.global_position - frame_body.global_position).angle()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not camera:

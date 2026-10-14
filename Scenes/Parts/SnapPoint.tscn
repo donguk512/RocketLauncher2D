@@ -8,5 +8,6 @@ script = ExtResource("1_nfaim")
 
 [node name="Indicator" type="Sprite2D" parent="." unique_id=1911783409]
 visible = false
+z_index = 1
 texture_filter = 1
 texture = ExtResource("2_trv02")

@@ -4,4 +4,5 @@
 
 [node name="Spacecraft" type="RigidBody2D" unique_id=2091945983]
 gravity_scale = 0.0
+center_of_mass_mode = 1
 script = ExtResource("1_rhlhl")

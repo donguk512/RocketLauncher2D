@@ -2,13 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://32y544570foh" path="res://Scenes/Parts/PartBase.tscn" id="1_y7bdf"]
 [ext_resource type="Texture2D" uid="uid://b0tv3ypstwi2g" path="res://Assets/Textures/Capsule.png" id="2_fc23p"]
+[ext_resource type="Script" uid="uid://byt4dawd3l8v6" path="res://Scripts/Module.gd" id="2_uvj0l"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_btkg4"]
 points = PackedVector2Array(32, 32, -32, 32, -8, -16, 8, -16)
 
 [node name="PartBase" unique_id=1603099264 instance=ExtResource("1_y7bdf")]
+script = ExtResource("2_uvj0l")
 icon = ExtResource("2_fc23p")
-part_name = "manned_control"
+part_name = "manned_capsule"
 
 [node name="CollisionShape" parent="Area" parent_id_path=PackedInt32Array(1653321796) index="0" unique_id=2141481376]
 shape = SubResource("ConvexPolygonShape2D_btkg4")

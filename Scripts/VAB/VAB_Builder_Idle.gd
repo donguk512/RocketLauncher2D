@@ -12,8 +12,6 @@ func on_mouse_button_down():
 		mouse_world_pos
 	)
 	
-	print(clicked_part)
-	
 	if clicked_part:
 		if shift_pressed:
 			selector.toggle(clicked_part)

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dm0862qatkjs8"]
+
+[node name="StageButton" type="MarginContainer" unique_id=234691273]
+custom_minimum_size = Vector2(60, 0)
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=143577946]
+z_index = 1
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=1113058160]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2

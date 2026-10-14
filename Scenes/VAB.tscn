@@ -13,8 +13,10 @@
 [ext_resource type="Shader" uid="uid://dbftuxubj70m2" path="res://Shaders/VAB_Main.gdshader" id="7_jg6co"]
 [ext_resource type="Script" uid="uid://6cvix3qtcea0" path="res://Scripts/VAB/VAB_Builder_Box.gd" id="8_jg6co"]
 [ext_resource type="Script" uid="uid://c8udvg0aqwy4t" path="res://Scripts/VAB/Blueprint.gd" id="9_2fi44"]
+[ext_resource type="Script" uid="uid://0wklx7g0f2gh" path="res://Scripts/VAB/VAB_Builder_Staging.gd" id="9_cmulk"]
 [ext_resource type="PackedScene" uid="uid://cchggmioxxxto" path="res://Scenes/Parts/Capsule.tscn" id="12_jg6co"]
 [ext_resource type="PackedScene" uid="uid://ccotbdvydbv3v" path="res://Scenes/Parts/Engine.tscn" id="14_xg5yd"]
+[ext_resource type="PackedScene" uid="uid://dk8xd1khm1rr0" path="res://Scenes/StageUI.tscn" id="16_cmulk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5h11f"]
 shader = ExtResource("7_jg6co")
@@ -56,6 +58,9 @@ script = ExtResource("5_8qigp")
 [node name="Box" type="Node" parent="Builder/States" unique_id=1571858226]
 script = ExtResource("8_jg6co")
 
+[node name="Staging" type="Node" parent="Builder/States" unique_id=33402371]
+script = ExtResource("9_cmulk")
+
 [node name="BlueprintIO" type="Node" parent="." unique_id=132923117]
 script = ExtResource("9_2fi44")
 
@@ -93,7 +98,7 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 columns = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=404460654]
+[node name="TopBar" type="MarginContainer" parent="UI" unique_id=404460654]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 44.0
@@ -101,7 +106,7 @@ grow_horizontal = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="BlueprintNameLabel" type="Label" parent="UI/MarginContainer" unique_id=720220696]
+[node name="BlueprintNameLabel" type="Label" parent="UI/TopBar" unique_id=720220696]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
@@ -110,27 +115,33 @@ theme_override_font_sizes/font_size = 18
 text = "엄청나게 긴 우주선 청사진 이름"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer" unique_id=1793561470]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TopBar" unique_id=1793561470]
 layout_mode = 2
 size_flags_horizontal = 8
 alignment = 2
 
-[node name="LoadBlueprintButton" type="Button" parent="UI/MarginContainer/HBoxContainer" unique_id=1833925595]
+[node name="LoadBlueprintButton" type="Button" parent="UI/TopBar/HBoxContainer" unique_id=1833925595]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "청사진 불러오기"
 
-[node name="SaveBlueprintButton" type="Button" parent="UI/MarginContainer/HBoxContainer" unique_id=1496575302]
+[node name="SaveBlueprintButton" type="Button" parent="UI/TopBar/HBoxContainer" unique_id=1496575302]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "청사진 저장하기"
 
-[node name="LaunchButton" type="Button" parent="UI/MarginContainer/HBoxContainer" unique_id=1432174765]
+[node name="LaunchButton" type="Button" parent="UI/TopBar/HBoxContainer" unique_id=1432174765]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 18
 text = "발사하러 가기"
+
+[node name="Stages" parent="UI" unique_id=178881947 instance=ExtResource("16_cmulk")]
+offset_top = 59.0
 
 [node name="GridCanvas" type="CanvasLayer" parent="." unique_id=941199153]
 layer = -1
@@ -150,6 +161,6 @@ mouse_filter = 2
 
 [connection signal="mouse_entered" from="UI/CatalogPanel" to="UI/CatalogPanel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UI/CatalogPanel" to="UI/CatalogPanel" method="_on_mouse_exited"]
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/LoadBlueprintButton" to="." method="_on_load_blueprint_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/SaveBlueprintButton" to="." method="_on_save_blueprint_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/LaunchButton" to="." method="_on_launch_pressed"]
+[connection signal="pressed" from="UI/TopBar/HBoxContainer/LoadBlueprintButton" to="." method="_on_load_blueprint_pressed"]
+[connection signal="pressed" from="UI/TopBar/HBoxContainer/SaveBlueprintButton" to="." method="_on_save_blueprint_pressed"]
+[connection signal="pressed" from="UI/TopBar/HBoxContainer/LaunchButton" to="." method="_on_launch_pressed"]

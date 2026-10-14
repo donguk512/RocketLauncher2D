@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://d24d03ykwo2s" path="res://Scripts/AssemblySpacecraft.gd" id="2_iit7f"]
 [ext_resource type="Script" uid="uid://y7o8ohyh80gw" path="res://Scripts/Map.gd" id="2_pkr1v"]
 [ext_resource type="Texture2D" uid="uid://bcwxc0ord2qjs" path="res://Assets/Textures/Triangle.png" id="3_iit7f"]
+[ext_resource type="PackedScene" uid="uid://dk8xd1khm1rr0" path="res://Scenes/StageUI.tscn" id="4_522g6"]
 
 [sub_resource type="Gradient" id="Gradient_c5a3t"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -27,7 +28,11 @@ script = ExtResource("2_iit7f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=850844228]
 
+[node name="Stages" parent="UI" unique_id=178881947 instance=ExtResource("4_522g6")]
+offset_top = 358.0
+
 [node name="Map" type="CanvasLayer" parent="." unique_id=1726652399]
+visible = false
 
 [node name="Node2D" type="Node2D" parent="Map" unique_id=614446222]
 script = ExtResource("2_pkr1v")
