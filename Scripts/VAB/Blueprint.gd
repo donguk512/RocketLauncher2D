@@ -24,28 +24,7 @@ func group_linked_parts(
 			var this_part: PartBase = queue.pop_front()
 			var collision_shape = this_part.collision_shape
 			
-			var params = PhysicsShapeQueryParameters2D.new()
-			params.shape = collision_shape.shape
-			params.transform = collision_shape.global_transform.scaled_local(
-				TOLERANCE_VECTOR
-			)
-			params.collide_with_areas = true
-			params.collide_with_bodies = false
-			
-			var neighbors: Array[PartBase] = []
-			
-			for socket in this_part.get_snap_points():
-				if socket.linked_point:
-					var linked_part: PartBase = socket.linked_point.part
-					neighbors.append(linked_part)
-					params.exclude.append(linked_part.area.get_rid())
-			
-			var hits = space_state.intersect_shape(params)
-			for hit in hits:
-				var collider = hit.collider
-				if collider is Area2D and collider.get_parent() is PartBase:
-					neighbors.append(collider.get_parent() as PartBase)
-			
+			var neighbors := this_part.get_neighbors()
 			
 			for neighbor in neighbors:
 				var idx = unvisited.find(neighbor)

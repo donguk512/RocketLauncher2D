@@ -23,6 +23,9 @@ func initialize(_parts) -> void:
 	parts = _parts
 	
 	for part in parts:
+		if part is PartEngine:
+			part.get_linked_tanks()
+			
 		if part.stage_index == -1:
 			continue
 		

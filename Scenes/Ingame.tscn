@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bcwxc0ord2qjs" path="res://Assets/Textures/Triangle.png" id="3_iit7f"]
 [ext_resource type="PackedScene" uid="uid://dk8xd1khm1rr0" path="res://Scenes/StageUI.tscn" id="4_522g6"]
 [ext_resource type="Script" uid="uid://cillo1m7iivs3" path="res://Scripts/ThrottleUI.gd" id="6_o04ng"]
+[ext_resource type="Script" uid="uid://bk1j7iuunds8g" path="res://Scripts/Telemetry.gd" id="7_sjeo6"]
 
 [sub_resource type="Gradient" id="Gradient_c5a3t"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -50,6 +51,23 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 value = 50.0
 fill_mode = 3
+
+[node name="Telemetry" type="MarginContainer" parent="UI" unique_id=1127139171]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+script = ExtResource("7_sjeo6")
+
+[node name="Label" type="Label" parent="UI/Telemetry" unique_id=374869165]
+layout_mode = 2
+text = "velocity: 1234.5 m/s
+altitude: 6789.0 m"
+horizontal_alignment = 2
 
 [node name="Map" type="CanvasLayer" parent="." unique_id=1726652399]
 visible = false

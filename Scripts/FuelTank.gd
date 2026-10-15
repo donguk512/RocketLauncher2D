@@ -1,14 +1,8 @@
+class_name FuelTank
 extends PartBase
 
 @export var fuel_mass = 0.0;
 @export var max_fuel_mass = 1.0;
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	super()
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func drain(ratio: float):
+	fuel_mass -= fuel_mass * ratio

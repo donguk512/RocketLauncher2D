@@ -22,6 +22,31 @@ func get_snap_points() -> Array[SnapPoint]:
 			points.append(child)
 			
 	return points
+	
+func get_neighbors() -> Array[PartBase]:
+	var neighbors: Array[PartBase] = []
+	
+	var params = PhysicsShapeQueryParameters2D.new()
+	params.shape = collision_shape.shape
+	params.transform = collision_shape.global_transform.scaled_local(
+		Vector2(1.025, 1.025)
+	)
+	params.collide_with_areas = true
+	params.collide_with_bodies = false
+	
+	for socket in get_snap_points():
+		if socket.linked_point:
+			var linked_part: PartBase = socket.linked_point.part
+			neighbors.append(linked_part)
+			params.exclude.append(linked_part.area.get_rid())
+	
+	var hits = get_world_2d().direct_space_state.intersect_shape(params)
+	for hit in hits:
+		var collider = hit.collider
+		if collider is Area2D and collider.get_parent() is PartBase:
+			neighbors.append(collider.get_parent() as PartBase)
+	
+	return neighbors
 
 func highlight():
 	highlighted = true
