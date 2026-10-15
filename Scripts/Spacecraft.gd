@@ -9,22 +9,32 @@ var absolute_position_y: float = 0.0
 
 var camera: Camera2D
 var throttle: float = 0.0
+var parts: Array[PartBase] = []
+var stages: Dictionary = {}
 
 func _ready() -> void:
-	call_deferred("_find_camera")
-	
 	linear_damp_mode = RigidBody2D.DAMP_MODE_REPLACE
 	linear_damp = 0.0
 	
 	angular_damp_mode = RigidBody2D.DAMP_MODE_REPLACE
 	angular_damp = 0.0
-
-func _find_camera() -> void:
-	for child in get_children():
-		if child is Camera2D:
-			camera = child
-			camera.ignore_rotation = false
-			break
+	
+func initialize(_parts) -> void:
+	parts = _parts
+	
+	for part in parts:
+		if part.stage_index == -1:
+			continue
+		
+		if not stages.get(part.stage_index):
+			stages[part.stage_index] = []
+			
+		stages[part.stage_index].append(part)
+	
+	camera = Camera2D.new()
+	camera.ignore_rotation = false
+	
+	add_child(camera)
 
 func _calc_gravity(body: CelestialBody, x: float, y: float) -> Vector2:
 	var dx = (body.absolute_position_x - absolute_position_x) / Constants.GRID_SIZE_BIG
@@ -38,7 +48,7 @@ func _calc_gravity(body: CelestialBody, x: float, y: float) -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
-	var frame_body := Global.frame_body
+	var frame_body: CelestialBody = Global.frame_body
 	var acceleration := Vector2.ZERO
 	
 	absolute_position_x = (
@@ -54,11 +64,15 @@ func _physics_process(delta: float) -> void:
 			acceleration -= _calc_gravity(
 				planet, frame_body.absolute_position_x, frame_body.absolute_position_y)
 				# tidal only
-		
+	
 	self.apply_central_force(acceleration * mass)
+	
+	for part in parts:
+		if part.get("process_part_physics"):
+			part.process_part_physics(self, delta)
 
 func _process(delta: float) -> void:
-	var frame_body := Global.frame_body
+	var frame_body: CelestialBody = Global.frame_body
 	
 	camera.global_rotation = - (
 		camera.global_position - frame_body.global_position).angle()

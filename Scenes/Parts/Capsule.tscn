@@ -21,3 +21,6 @@ texture = ExtResource("2_fc23p")
 
 [node name="Top" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="0" unique_id=115767949]
 position = Vector2(0, -16)
+
+[node name="Boundary" parent="." index="3" unique_id=889132765]
+offset_top = -16.0

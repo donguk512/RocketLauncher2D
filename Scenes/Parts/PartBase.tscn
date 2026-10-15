@@ -22,3 +22,10 @@ position = Vector2(0, -32)
 [node name="Bottom" parent="SnapPoints" unique_id=2073727216 instance=ExtResource("2_4xajs")]
 position = Vector2(0, 32)
 rotation = 3.1415927
+
+[node name="Boundary" type="ReferenceRect" parent="." unique_id=889132765]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 2

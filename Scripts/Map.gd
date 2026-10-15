@@ -129,7 +129,7 @@ func _draw() -> void:
 		if planet.parent_body:
 			orbit.position = planet.parent_body.absolute_position / zoom
 	
-	var ship: Spacecraft = spacecrafts.active_ship
+	var ship: Spacecraft = Global.current_ship
 	
 	if ship:
 		ship_icon.position = Vector2(

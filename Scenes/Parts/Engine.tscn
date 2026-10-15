@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://dk0jn2uucdgqr" path="res://Scripts/Engine.gd" id="2_oqcul"]
 [ext_resource type="Texture2D" uid="uid://dd3sm1mgii0ha" path="res://Assets/Textures/Engine.png" id="2_xvfn3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvfn3"]
-size = Vector2(48, 80)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xvfn3"]
+points = PackedVector2Array(-12, -40, -24, 40, 24, 40, 12, -40)
 
 [sub_resource type="Curve" id="Curve_t4oxv"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -26,8 +26,8 @@ angle_min = 1.0728835e-05
 angle_max = 90.000015
 direction = Vector3(0, 1, 0)
 spread = 0.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
 gravity = Vector3(0, 0, 0)
 scale_min = 24.0
 scale_max = 24.0
@@ -36,24 +36,34 @@ alpha_curve = SubResource("CurveTexture_btkg4")
 
 [node name="Engine" unique_id=1603099264 instance=ExtResource("1_6d1l3")]
 script = ExtResource("2_oqcul")
-max_thrust = 500.0
+max_thrust = 1000000.0
+mass = 3000.0
 icon = ExtResource("2_xvfn3")
 part_name = "engine"
 
 [node name="CollisionShape" parent="Area" parent_id_path=PackedInt32Array(1653321796) index="0" unique_id=2141481376]
-position = Vector2(0, -7.999998)
-shape = SubResource("RectangleShape2D_xvfn3")
+shape = SubResource("ConvexPolygonShape2D_xvfn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1" unique_id=1062620953]
+texture_filter = 1
+position = Vector2(0, 8)
+texture = ExtResource("2_xvfn3")
 
 [node name="Top" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="0" unique_id=115767949]
-position = Vector2(0, -48)
+position = Vector2(0, -40)
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1062620953]
-texture_filter = 1
-texture = ExtResource("2_xvfn3")
+[node name="Bottom" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="1" unique_id=2073727216]
+position = Vector2(0, 40)
 
 [node name="Flame" type="GPUParticles2D" parent="." index="3" unique_id=1015524501]
 z_index = -1
 position = Vector2(0, 28)
 emitting = false
+lifetime = 0.5
 visibility_rect = Rect2(-50, 0, 100, 100)
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_tb70k")
+
+[node name="Boundary" parent="." index="4" unique_id=889132765]
+offset_top = -40.0
+offset_bottom = 40.0

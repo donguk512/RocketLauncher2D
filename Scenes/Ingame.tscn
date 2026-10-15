@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://gibs0s7vmhwj" path="res://Scripts/God.gd" id="1_7e8yd"]
 [ext_resource type="Script" uid="uid://duubghesgessk" path="res://Scripts/World.gd" id="1_c5a3t"]
+[ext_resource type="Script" uid="uid://boyjlmagc5j3x" path="res://Scripts/IngameController.gd" id="1_n56hh"]
 [ext_resource type="Script" uid="uid://d24d03ykwo2s" path="res://Scripts/AssemblySpacecraft.gd" id="2_iit7f"]
 [ext_resource type="Script" uid="uid://y7o8ohyh80gw" path="res://Scripts/Map.gd" id="2_pkr1v"]
 [ext_resource type="Texture2D" uid="uid://bcwxc0ord2qjs" path="res://Assets/Textures/Triangle.png" id="3_iit7f"]
 [ext_resource type="PackedScene" uid="uid://dk8xd1khm1rr0" path="res://Scenes/StageUI.tscn" id="4_522g6"]
+[ext_resource type="Script" uid="uid://cillo1m7iivs3" path="res://Scripts/ThrottleUI.gd" id="6_o04ng"]
 
 [sub_resource type="Gradient" id="Gradient_c5a3t"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -14,6 +16,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_c5a3t")
 
 [node name="Ingame" type="Node2D" unique_id=1938959817]
+script = ExtResource("1_n56hh")
 
 [node name="World" type="Node2D" parent="." unique_id=95707895]
 unique_name_in_owner = true
@@ -30,6 +33,23 @@ script = ExtResource("2_iit7f")
 
 [node name="Stages" parent="UI" unique_id=178881947 instance=ExtResource("4_522g6")]
 offset_top = 358.0
+
+[node name="ThrottleFrame" type="MarginContainer" parent="UI" unique_id=526058140]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("6_o04ng")
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/ThrottleFrame" unique_id=1994072188]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+value = 50.0
+fill_mode = 3
 
 [node name="Map" type="CanvasLayer" parent="." unique_id=1726652399]
 visible = false

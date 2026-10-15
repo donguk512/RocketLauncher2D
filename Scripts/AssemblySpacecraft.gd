@@ -7,8 +7,6 @@ const spacecraft = preload("res://Scenes/Spacecraft.tscn")
 @onready var universe: Universe = %Universe
 @onready var world: SpaceWorld = %World
 
-var active_ship: Spacecraft = null
-
 func _ready() -> void:
 	for i in range(30):
 		await get_tree().physics_frame
@@ -17,7 +15,7 @@ func _ready() -> void:
 	var blueprint = Global.launch_blueprint
 	var spawn_theta := -PI/4.0
 	
-	var spawn_offset := Vector2.from_angle(spawn_theta) * (earth.radius + 8.0)
+	var spawn_offset := Vector2.from_angle(spawn_theta) * (earth.radius)
 	
 	Global.origin_offset_x = spawn_offset.x
 	Global.origin_offset_y = spawn_offset.y
@@ -55,8 +53,10 @@ func _ready() -> void:
 		
 	add_child(ship)
 	
-	var camera = Camera2D.new()
-	ship.add_child(camera)
-	camera.make_current()
+	ship.initialize(parts)
+	ship.camera.global_position = VABTransform.get_aabb(parts).get_center()
+	ship.camera.make_current()
+	
+	Global.current_ship = ship
 	
 	stage_ui.refresh_stage_icons(parts)

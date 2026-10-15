@@ -6,7 +6,7 @@ class_name SpaceWorld
 @export var origin_shift_threshold: float = 8192.0 ** 2
 
 func switch_frame(new_body: CelestialBody):
-	var old := Global.frame_body
+	var old: CelestialBody = Global.frame_body
 	
 	Global.origin_offset_x += old.absolute_position_x - new_body.absolute_position_x
 	Global.origin_offset_y += old.absolute_position_y - new_body.absolute_position_y
@@ -20,12 +20,10 @@ func switch_frame(new_body: CelestialBody):
 
 
 func _physics_process(delta: float) -> void:
-	var active_ship: Spacecraft = spacecrafts.active_ship
-	
-	if not active_ship:
+	if not Global.current_ship:
 		return
 	
-	var shift = active_ship.global_position
+	var shift = Global.current_ship.global_position
 	
 	if shift.length_squared() > origin_shift_threshold:
 		print("<SHIFT START>")

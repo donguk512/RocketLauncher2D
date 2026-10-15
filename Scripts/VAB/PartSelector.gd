@@ -75,10 +75,14 @@ func snap():
 	)
 	
 	for part in selected_parts:
+		var bound_rect: ReferenceRect = part.get_node("Boundary")
+		var bound_offset := part.global_position - bound_rect.global_position
+		
 		part.global_position += snap_offset
-		part.global_position = part.global_position.snapped(
+		
+		part.global_position = bound_rect.global_position.snapped(
 			Vector2.ONE * Constants.GRID_SIZE
-		)
+		) + bound_offset
 
 func remove():
 	for part in selected_parts:
