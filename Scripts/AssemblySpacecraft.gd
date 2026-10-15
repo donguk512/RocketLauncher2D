@@ -15,7 +15,7 @@ func _ready() -> void:
 	var blueprint = Global.launch_blueprint
 	var spawn_theta := -PI/4.0
 	
-	var spawn_offset := Vector2.from_angle(spawn_theta) * (earth.radius)
+	var spawn_offset := Vector2.from_angle(spawn_theta) * (earth.radius + 16.0)
 	
 	Global.origin_offset_x = spawn_offset.x
 	Global.origin_offset_y = spawn_offset.y
@@ -42,14 +42,12 @@ func _ready() -> void:
 		center_of_mass += part.position * part.mass
 		total_mass += part.mass
 		
-		ship.center_of_mass = center_of_mass / total_mass
-		ship.mass = total_mass
-		
-		print(stages)
-		print(part.stage_index)
 		if part.stage_index != -1 and not part.stage_index in stages:
 			stages.append(part.stage_index)
 			stage_ui.make_stage()
+		
+	ship.mass = total_mass
+	ship.center_of_mass = center_of_mass / total_mass
 		
 	add_child(ship)
 	

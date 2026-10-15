@@ -11,6 +11,7 @@ size = Vector2(64, 128)
 script = ExtResource("2_wmp5f")
 fuel_mass = 18000.0
 max_fuel_mass = 18000.0
+dry_mass = 2000.0
 mass = 20000.0
 part_name = "fuel_tank_2"
 

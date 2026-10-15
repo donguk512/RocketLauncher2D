@@ -31,7 +31,7 @@ func make_stage():
 	stage_nodes.append(stage_ui)
 	
 	# ⭐️ 핵심: + 버튼을 항상 맨 위(0) 또는 맨 아래(-1)로 안전하게 이동!
-	v_box_container.move_child(stage_ui, stage_nodes.size())
+	v_box_container.move_child(stage_ui, 0)
 	v_box_container.move_child(plus_button, -1)
 	
 	# 버튼 클릭 시 자신의 현재 인덱스를 찾아 선택 토글
@@ -79,5 +79,5 @@ func scan_parts(parts):
 		if part.stage_index == -1:
 			continue
 			
-		while not stage_nodes[part.stage_index]:
+		while not stage_nodes.get(part.stage_index):
 			make_stage()

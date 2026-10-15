@@ -14,11 +14,11 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_btkg4"]
 curve = SubResource("Curve_t4oxv")
 
-[sub_resource type="Gradient" id="Gradient_6d1l3"]
+[sub_resource type="Gradient" id="Gradient_xvfn3"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_l2twx"]
-gradient = SubResource("Gradient_6d1l3")
+gradient = SubResource("Gradient_xvfn3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tb70k"]
 particle_flag_disable_z = true
@@ -36,7 +36,7 @@ alpha_curve = SubResource("CurveTexture_btkg4")
 
 [node name="Engine" unique_id=1603099264 instance=ExtResource("1_6d1l3")]
 script = ExtResource("2_oqcul")
-max_thrust = 1000000.0
+max_thrust = 10000000.0
 mass = 3000.0
 icon = ExtResource("2_xvfn3")
 part_name = "engine"
@@ -57,9 +57,9 @@ position = Vector2(0, 40)
 
 [node name="Flame" type="GPUParticles2D" parent="." index="3" unique_id=1015524501]
 z_index = -1
-position = Vector2(0, 28)
+position = Vector2(0, 16)
 emitting = false
-lifetime = 0.5
+lifetime = 0.75
 visibility_rect = Rect2(-50, 0, 100, 100)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_tb70k")

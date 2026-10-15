@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	altitude: %.1f m
 	
 	%d fps" % [
-		ship.linear_velocity.length() / 64.0,
-		Vector2(dx, dy).length() - f_body.radius,
+		ship.linear_velocity.length() / Constants.PIXELS_PER_METER,
+		(Vector2(dx, dy).length() - f_body.radius) / Constants.PIXELS_PER_METER,
 		1.0 / delta
 	])

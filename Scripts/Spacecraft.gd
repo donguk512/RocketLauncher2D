@@ -40,14 +40,14 @@ func initialize(_parts) -> void:
 	add_child(camera)
 
 func _calc_gravity(body: CelestialBody, x: float, y: float) -> Vector2:
-	var dx = (body.absolute_position_x - absolute_position_x) / Constants.GRID_SIZE_BIG
-	var dy = (body.absolute_position_y - absolute_position_y) / Constants.GRID_SIZE_BIG
+	var dx = (body.absolute_position_x - absolute_position_x) / Constants.PIXELS_PER_METER
+	var dy = (body.absolute_position_y - absolute_position_y) / Constants.PIXELS_PER_METER
 		
 	var distance_squared = dx*dx + dy*dy
-	var direction = Vector2(dx, dy)
+	var direction = Vector2(dx, dy).normalized()
+	var accel = (Constants.G * body.mass / distance_squared) * (Global.time_scale ** 2)
 	
-	return direction.normalized() * (
-		Constants.G * body.mass / distance_squared) * (Global.time_scale ** 2)
+	return direction * accel * Constants.PIXELS_PER_METER
 
 
 func _physics_process(delta: float) -> void:
@@ -74,7 +74,86 @@ func _physics_process(delta: float) -> void:
 		if part.get("process_part_physics"):
 			part.process_part_physics(self, delta)
 
+
+func separate_parts_from(decoupler: PartBase, force: float) -> void:
+	var to_detach: Array[PartBase] = []
+	var unvisited: Array[PartBase] = []
+	
+	for neighbor in decoupler.get_neighbors():
+		if neighbor.position.y > decoupler.position.y:
+			unvisited.append(neighbor)
+			
+	var visited = []
+	while not unvisited.is_empty():
+		var current = unvisited.pop_back()
+		visited.append(current)
+		to_detach.append(current)
+		
+		for neighbor in current.get_neighbors():
+			if neighbor == decoupler or neighbor in visited or neighbor in unvisited:
+				continue
+			unvisited.append(neighbor)
+			
+	if to_detach.is_empty():
+		return
+		
+	var debris: Spacecraft = load("res://Scenes/Spacecraft.tscn").instantiate()
+	get_parent().add_child(debris)
+	
+	debris.global_position = global_position
+	debris.global_rotation = global_rotation
+	debris.linear_velocity = linear_velocity
+	debris.angular_velocity = angular_velocity
+	
+	for part in to_detach:
+		parts.erase(part)
+		part.reparent(debris, false) 
+		
+		for child in get_children():
+			if child is CollisionShape2D and child.position.is_equal_approx(part.position):
+				child.reparent(debris, false)
+				break
+				
+	self.recalculate_mass_com()
+	debris.parts = to_detach
+	debris.recalculate_mass_com()
+	
+	var push_dir := -global_transform.y.normalized()
+	
+	apply_impulse(push_dir * force, decoupler.global_position - global_position)
+	debris.apply_impulse(-push_dir * force, decoupler.global_position - debris.global_position)
+	
+	parts.erase(decoupler)
+	debris.parts.erase(decoupler)
+	
+	for child in get_children():
+		if child is CollisionShape2D and child.position.is_equal_approx(decoupler.position):
+			child.queue_free()
+			break
+			
+	decoupler.queue_free()
+	self.recalculate_mass_com()
+
+func recalculate_mass_com() -> void:
+	var total_mass := 0.0
+	var com := Vector2.ZERO
+	
+	for part in parts:
+		total_mass += part.mass
+		com += part.position * part.mass
+		
+	if total_mass > 0.0:
+		self.mass = total_mass
+		self.center_of_mass = com / total_mass
+	
+	if camera:
+		camera.global_position = VABTransform.get_aabb(parts).get_center()
+
+
 func _process(delta: float) -> void:
+	if not is_instance_valid(camera):
+		return
+	
 	var frame_body: CelestialBody = Global.frame_body
 	
 	camera.global_rotation = - (

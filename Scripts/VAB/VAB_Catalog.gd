@@ -11,7 +11,8 @@ signal part_selected(PackedScene)
 
 func _ready() -> void:
 	# Generate part buttons on catalog
-	for part in available_parts:
+	for part_name in PartDB.part_names:
+		var part = PartDB.part_names[part_name]
 		var btn: Button = PART_BUTTON.instantiate()
 		btn.setup(part)
 		btn.button_down.connect(func():

@@ -31,9 +31,10 @@ script = ExtResource("1_7e8yd")
 script = ExtResource("2_iit7f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=850844228]
+layer = 2
 
 [node name="Stages" parent="UI" unique_id=178881947 instance=ExtResource("4_522g6")]
-offset_top = 358.0
+offset_top = 102.0
 
 [node name="ThrottleFrame" type="MarginContainer" parent="UI" unique_id=526058140]
 anchors_preset = 2
@@ -49,7 +50,8 @@ script = ExtResource("6_o04ng")
 [node name="ProgressBar" type="ProgressBar" parent="UI/ThrottleFrame" unique_id=1994072188]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-value = 50.0
+max_value = 1.0
+value = 1.0
 fill_mode = 3
 
 [node name="Telemetry" type="MarginContainer" parent="UI" unique_id=1127139171]
@@ -85,6 +87,8 @@ z_index = -2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 256.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_tb70k")

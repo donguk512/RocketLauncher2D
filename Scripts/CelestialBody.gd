@@ -46,35 +46,6 @@ func init():
 		mu = Constants.G * parent_body.mass
 		mean_motion = sqrt(mu / semi_major_axis ** 3)
 
-func calculate_pos(theta: float) -> Array:
-	if not parent_body: # When it's sun
-		return [0.0, 0.0]
-	
-	# Update Mean Anomaly
-	var mean_anomaly = fmod(theta, PI * 2.0)
-	
-	# Calculating approximate Eccentric Anomaly
-	var E: float = mean_anomaly
-	
-	# M = E - e sin(E)
-	# Newton-Raphson
-	for i in range(Constants.KEPLER_ITERATION):
-		E -= (
-			E - eccentricity * sin(E) - mean_anomaly
-			) / (
-			1 - eccentricity * cos(E)
-		)
-	
-	var x = semi_major_axis * (cos(E) - eccentricity)
-	var y = semi_major_axis * sqrt(1 - eccentricity ** 2) * sin(E)
-	
-	var sin_omega = sin(arg_of_periapsis)
-	var cos_omega = cos(arg_of_periapsis)
-	
-	var x_rotated = x * cos_omega - y * sin_omega
-	var y_rotated = x * sin_omega + y * cos_omega
-	
-	return [x_rotated, y_rotated]
 
 func _physics_process(delta: float) -> void:
 	
@@ -85,7 +56,13 @@ func _physics_process(delta: float) -> void:
 		parent_offset_x = parent_body.absolute_position_x
 		parent_offset_y = parent_body.absolute_position_y
 	
-	var pos = calculate_pos(mean_anomaly_epoch + mean_motion * Global.time)
+	var pos = OrbitMath.calculate_pos(
+		mean_anomaly_epoch + mean_motion * Global.time,
+		eccentricity,
+		semi_major_axis,
+		arg_of_periapsis,
+		4
+	)
 	absolute_position_x = pos[0] + parent_offset_x
 	absolute_position_y = pos[1] + parent_offset_y
 	

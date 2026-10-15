@@ -27,6 +27,8 @@ func refresh_stage_visuals() -> void:
 func _stageable(part: PartBase) -> bool:
 	return (
 		part is PartEngine
+		or
+		part is PartDecoupler
 	)
 
 func on_mouse_button_down():

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cc0agq7so6www"]
+
+[ext_resource type="PackedScene" uid="uid://32y544570foh" path="res://Scenes/Parts/PartBase.tscn" id="1_ua0jf"]
+[ext_resource type="Texture2D" uid="uid://cvypkwopeyqwn" path="res://Assets/Textures/Decoupler.png" id="2_w5ik5"]
+[ext_resource type="Script" uid="uid://c2uh8o80bw4gt" path="res://Scripts/Decoupler.gd" id="3_vho8c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7l54m"]
+size = Vector2(64, 16)
+
+[node name="Decoupler" unique_id=1603099264 instance=ExtResource("1_ua0jf")]
+script = ExtResource("3_vho8c")
+separation_force = 640.0
+mass = 500.0
+icon = ExtResource("2_w5ik5")
+part_name = "decoupler"
+
+[node name="CollisionShape" parent="Area" parent_id_path=PackedInt32Array(1653321796) index="0" unique_id=2141481376]
+shape = SubResource("RectangleShape2D_7l54m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1" unique_id=780318693]
+texture_filter = 1
+texture = ExtResource("2_w5ik5")
+
+[node name="Top" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="0" unique_id=115767949]
+position = Vector2(0, -8)
+
+[node name="Bottom" parent="SnapPoints" parent_id_path=PackedInt32Array(269346816) index="1" unique_id=2073727216]
+position = Vector2(0, 8)
+
+[node name="Boundary" parent="." index="3" unique_id=889132765]
+offset_top = -8.0
+offset_bottom = 8.0

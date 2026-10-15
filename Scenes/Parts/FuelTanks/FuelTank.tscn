@@ -8,6 +8,7 @@
 script = ExtResource("2_d0q8k")
 fuel_mass = 9000.0
 max_fuel_mass = 9000.0
+dry_mass = 1000.0
 mass = 10000.0
 icon = ExtResource("3_ahc3o")
 part_name = "fuel_tank"

@@ -25,10 +25,14 @@ func get_linked_tanks() -> void:
 	while not unvisiteds.is_empty():
 		var part: PartBase = unvisiteds.pop_back()
 		visiteds.append(part)
-		tanks.append(part)
+		
+		if part is FuelTank:
+			tanks.append(part)
 		
 		for neighbor in part.get_neighbors():
 			if neighbor is not FuelTank:
+				continue
+			if neighbor in visiteds:
 				continue
 			unvisiteds.append(neighbor)
 	
@@ -46,7 +50,9 @@ func process_part_physics(ship: Spacecraft, delta: float) -> void:
 	for tank: FuelTank in linked_fuel_tanks:
 		total_fuel += tank.fuel_mass
 	
-	print(goal_fuel, " / ", total_fuel)
+	if total_fuel <= 0.0:
+		disable()
+		return
 	
 	var fuel_to_consume := minf(total_fuel, goal_fuel)
 		
@@ -56,13 +62,12 @@ func process_part_physics(ship: Spacecraft, delta: float) -> void:
 	var thrust = fuel_to_consume / delta * Constants.THRUST_PER_FUEL
 	
 	var direction := -global_transform.y.normalized()
-	var force = direction * thrust
+	var force = direction * thrust * Constants.PIXELS_PER_METER
 	var force_pos := global_position - ship.global_position
 	
 	var material := flame.process_material as ParticleProcessMaterial
-	material.initial_velocity_min = ship.throttle
-	material.initial_velocity_max = ship.throttle * 2.0
+	material.initial_velocity_min = ship.throttle * 100.0
+	material.initial_velocity_max = ship.throttle * 200.0
 	
 	ship.apply_force(force, force_pos)
-	print(force, force_pos)
 	
